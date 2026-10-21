@@ -1,0 +1,1935 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Branilist Public API",
+    "version": "v1",
+    "description": "Referência REST/JSON conferida em 2026-10-21. Leia os guias sobre PKCE, formatos de erro, quotas, CORS e particularidades da biblioteca. Exemplos são ilustrativos. A autorização no navegador não é uma operação JSON e está descrita no guia OAuth.",
+    "contact": {
+      "name": "Documentação Branilist",
+      "url": "https://github.com/Aniyan-Project/Branilist-docs/issues"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://branilist.com",
+      "description": "Origem pública usada nos exemplos"
+    }
+  ],
+  "externalDocs": {
+    "description": "Guias e referência",
+    "url": "https://github.com/Aniyan-Project/Branilist-docs"
+  },
+  "tags": [
+    {
+      "name": "Catálogo"
+    },
+    {
+      "name": "Conta"
+    },
+    {
+      "name": "Biblioteca"
+    },
+    {
+      "name": "OAuth"
+    }
+  ],
+  "paths": {
+    "/api/v1": {
+      "get": {
+        "operationId": "getVersion",
+        "summary": "Metadados e versão",
+        "tags": [
+          "Catálogo"
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Version"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/search": {
+      "get": {
+        "operationId": "searchMedia",
+        "summary": "Buscar catálogo público",
+        "tags": [
+          "Catálogo"
+        ],
+        "security": [
+          {},
+          {
+            "APIKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSearchResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "API key opcional exige search:read. Não há filtro de tipo/paginação. Ordena por popularidade e ID decrescentes.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Após trim, ao menos 2 bytes UTF-8; prefira 2 caracteres.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "De 1 a 50. Ausente, inválido ou fora da faixa usa 20.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "x-api-key-scopes": [
+          "search:read"
+        ]
+      }
+    },
+    "/api/v1/media/{id}": {
+      "get": {
+        "operationId": "getMedia",
+        "summary": "Detalhes por ID Branilist",
+        "tags": [
+          "Catálogo"
+        ],
+        "security": [
+          {},
+          {
+            "APIKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Media"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "API key opcional exige catalog:read. Resposta id sempre interno Branilist. IDs externos só consultam vínculos existentes; não importam mídia. 400 para ID inválido; 404 para vínculo/mídia ausente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "x-api-key-scopes": [
+          "catalog:read"
+        ]
+      }
+    },
+    "/api/v1/media/mal/{id}": {
+      "get": {
+        "operationId": "getMediaByMyAnimeList",
+        "summary": "Detalhes por ID MyAnimeList",
+        "tags": [
+          "Catálogo"
+        ],
+        "security": [
+          {},
+          {
+            "APIKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Media"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "API key opcional exige catalog:read. Resposta id sempre interno Branilist. IDs externos só consultam vínculos existentes; não importam mídia. 400 para ID inválido; 404 para vínculo/mídia ausente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "x-api-key-scopes": [
+          "catalog:read"
+        ]
+      }
+    },
+    "/api/v1/media/anilist/{id}": {
+      "get": {
+        "operationId": "getMediaByAniList",
+        "summary": "Detalhes por ID AniList",
+        "tags": [
+          "Catálogo"
+        ],
+        "security": [
+          {},
+          {
+            "APIKey": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Media"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "API key opcional exige catalog:read. Resposta id sempre interno Branilist. IDs externos só consultam vínculos existentes; não importam mídia. 400 para ID inválido; 404 para vínculo/mídia ausente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "x-api-key-scopes": [
+          "catalog:read"
+        ]
+      }
+    },
+    "/api/v1/me": {
+      "get": {
+        "operationId": "getMe",
+        "summary": "Perfil do dono do token",
+        "tags": [
+          "Conta"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "profile:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/search": {
+      "get": {
+        "operationId": "searchAsUser",
+        "summary": "Busca com preferências do usuário",
+        "tags": [
+          "Conta"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "library:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeSearchResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "Cache-Control: private, no-store. Preferências de conteúdo adulto seguem conta e configuração global. Resposta difere de Media.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Ao menos 2 caracteres Unicode após trim.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "De 1 a 30; ausente, inválido ou fora da faixa usa 20.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "description": "ANIME ou MANGA, sem diferenciar maiúsculas; outro valor retorna 400.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/me/library": {
+      "get": {
+        "operationId": "getLibrary",
+        "summary": "Biblioteca pessoal, até 500 entradas",
+        "tags": [
+          "Biblioteca"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "library:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LibraryResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "Sem paginação. Ordena por atualização decrescente e inclui entradas privadas do dono do token."
+      }
+    },
+    "/api/v1/me/library/{mediaId}": {
+      "put": {
+        "operationId": "updateLibrary",
+        "summary": "Criar ou atualizar entrada",
+        "tags": [
+          "Biblioteca"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "library:write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WriteResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "Não é PATCH: omitir progress/repeatCount zera; omitir score remove nota. Datas/privacidade omitidas preservam valores conforme regras documentadas. Mídia interna inexistente pode responder 500. Sem validação de total de progresso nesta rota.",
+        "parameters": [
+          {
+            "name": "mediaId",
+            "in": "path",
+            "required": true,
+            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibraryInput"
+              },
+              "example": {
+                "status": "CURRENT",
+                "progress": 3,
+                "score": 8.5,
+                "repeatCount": 0,
+                "private": false
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteLibrary",
+        "summary": "Remover entrada da biblioteca",
+        "tags": [
+          "Biblioteca"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "library:write"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "Sem corpo. ID interno Branilist. 200 com removed=false se a entrada não existir. Grava remoção e histórico na mesma transação. Cache-Control: no-store. Token ausente retorna 401.",
+        "parameters": [
+          {
+            "name": "mediaId",
+            "in": "path",
+            "required": true,
+            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/me/activity": {
+      "get": {
+        "operationId": "getActivity",
+        "summary": "Histórico pessoal, até 200 registros",
+        "tags": [
+          "Conta"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "activity:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "Mais recentes primeiro, sem paginação. media.title é string."
+      }
+    },
+    "/api/v1/me/collections": {
+      "get": {
+        "operationId": "getCollections",
+        "summary": "Coleções do dono do token",
+        "tags": [
+          "Conta"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "collections:read"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionsResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "description": "Inclui privadas. Sem paginação/limite nesta consulta. Ordena por posição e criação decrescente. Não retorna as mídias da coleção."
+      }
+    },
+    "/oauth/token": {
+      "post": {
+        "operationId": "issueOrRefreshToken",
+        "summary": "Trocar código ou renovar tokens",
+        "tags": [
+          "OAuth"
+        ],
+        "description": "Form URL encoded. Client ID no formulário ou HTTP Basic; Basic prevalece. CONFIDENTIAL exige secret; PUBLIC não exige. Access 1h, refresh 30 dias com rotação. Códigos 10 minutos e uso único. 120 chamadas/minuto por client ID.",
+        "security": [
+          {},
+          {
+            "ClientSecretBasic": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "client_id": {
+                        "type": "string"
+                      },
+                      "client_secret": {
+                        "type": "string"
+                      },
+                      "grant_type": {
+                        "const": "authorization_code",
+                        "type": "string"
+                      },
+                      "code": {
+                        "type": "string"
+                      },
+                      "redirect_uri": {
+                        "type": "string",
+                        "format": "uri"
+                      },
+                      "code_verifier": {
+                        "type": "string",
+                        "minLength": 43,
+                        "maxLength": 128
+                      }
+                    },
+                    "required": [
+                      "grant_type",
+                      "code",
+                      "redirect_uri",
+                      "code_verifier"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "client_id": {
+                        "type": "string"
+                      },
+                      "client_secret": {
+                        "type": "string"
+                      },
+                      "grant_type": {
+                        "const": "refresh_token",
+                        "type": "string"
+                      },
+                      "refresh_token": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "grant_type",
+                      "refresh_token"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenSet"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/oauth/revoke": {
+      "post": {
+        "operationId": "revokeToken",
+        "summary": "Revogar o token informado",
+        "tags": [
+          "OAuth"
+        ],
+        "security": [],
+        "description": "Retorna 200 sem corpo, inclusive para token desconhecido/ausente. Não garante revogação do par de tokens.",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "required": []
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Token tratado; resposta sem corpo."
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "APIKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Branilist-API-Key",
+        "description": "Somente servidor. catalog:read para detalhes, search:read para busca. Veja x-api-key-scopes por operação."
+      },
+      "OAuth2": {
+        "type": "oauth2",
+        "description": "Authorization Code + PKCE S256 obrigatório; escopos independentes. Alguns handlers legados retornam 429 quando Bearer está ausente. Token inválido/sem escopo normalmente retorna 401.",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://branilist.com/oauth/authorize",
+            "tokenUrl": "https://branilist.com/oauth/token",
+            "refreshUrl": "https://branilist.com/oauth/token",
+            "scopes": {
+              "profile:read": "Ler perfil do dono do token",
+              "library:read": "Ler biblioteca e buscar como usuário",
+              "library:write": "Criar, atualizar e remover entradas",
+              "activity:read": "Ler histórico",
+              "collections:read": "Ler coleções"
+            }
+          }
+        }
+      },
+      "ClientSecretBasic": {
+        "type": "http",
+        "scheme": "basic",
+        "description": "client_id como usuário e client_secret como senha, para clientes confidenciais."
+      }
+    },
+    "schemas": {
+      "Title": {
+        "type": "object",
+        "properties": {
+          "romaji": {
+            "type": "string"
+          },
+          "english": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "native": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "portuguese": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "romaji",
+          "english",
+          "native",
+          "portuguese"
+        ]
+      },
+      "ShortTitle": {
+        "type": "object",
+        "properties": {
+          "romaji": {
+            "type": "string"
+          },
+          "english": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "portuguese": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "romaji",
+          "english",
+          "portuguese"
+        ]
+      },
+      "Media": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "slug": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ANIME",
+              "MANGA"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "UPCOMING",
+              "RELEASING",
+              "FINISHED",
+              "CANCELLED",
+              "HIATUS"
+            ]
+          },
+          "format": {
+            "type": "string"
+          },
+          "title": {
+            "$ref": "#/components/schemas/Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "coverImage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bannerImage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "episodes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "chapters": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "seasonYear": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "averageScore": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "popularity": {
+            "type": "integer"
+          },
+          "isAdult": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "type",
+          "status",
+          "format",
+          "title",
+          "description",
+          "coverImage",
+          "bannerImage",
+          "episodes",
+          "chapters",
+          "seasonYear",
+          "averageScore",
+          "popularity",
+          "isAdult"
+        ]
+      },
+      "PublicSearchItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "slug": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ANIME",
+              "MANGA"
+            ]
+          },
+          "format": {
+            "type": "string"
+          },
+          "title": {
+            "$ref": "#/components/schemas/ShortTitle"
+          },
+          "coverImage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "averageScore": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "popularity": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "type",
+          "format",
+          "title",
+          "coverImage",
+          "averageScore",
+          "popularity"
+        ]
+      },
+      "MeSearchItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "slug": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ANIME",
+              "MANGA"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "format": {
+            "type": "string"
+          },
+          "title": {
+            "$ref": "#/components/schemas/Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "descriptionEnglish": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "coverImage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "chapters": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "averageScore": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "startDate": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "endDate": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "isAdult": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "type",
+          "status",
+          "format",
+          "title",
+          "description",
+          "descriptionEnglish",
+          "coverImage",
+          "chapters",
+          "averageScore",
+          "startDate",
+          "endDate",
+          "isAdult"
+        ]
+      },
+      "LibraryMedia": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "slug": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ANIME",
+              "MANGA"
+            ]
+          },
+          "title": {
+            "$ref": "#/components/schemas/ShortTitle"
+          },
+          "coverImage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "type",
+          "title",
+          "coverImage"
+        ]
+      },
+      "LibraryEntry": {
+        "type": "object",
+        "properties": {
+          "mediaId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PLANNING",
+              "CURRENT",
+              "COMPLETED",
+              "PAUSED",
+              "DROPPED"
+            ]
+          },
+          "progress": {
+            "type": "integer"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 10,
+                "multipleOf": 0.5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "repeatCount": {
+            "type": "integer"
+          },
+          "startedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "completedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "private": {
+            "type": "boolean"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "media": {
+            "$ref": "#/components/schemas/LibraryMedia"
+          }
+        },
+        "required": [
+          "mediaId",
+          "status",
+          "progress",
+          "score",
+          "repeatCount",
+          "startedAt",
+          "completedAt",
+          "private",
+          "updatedAt",
+          "media"
+        ]
+      },
+      "LibraryInput": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Obrigatório. Após trim/uppercase: PLANNING, CURRENT, COMPLETED, PAUSED ou DROPPED."
+          },
+          "progress": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "description": "Omitir zera o progresso, inclusive em atualização."
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 10,
+                "multipleOf": 0.5
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Omitir ou enviar null remove a nota. Não usa a escala percentual de averageScore."
+          },
+          "repeatCount": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0,
+            "description": "Omitir zera as repetições."
+          },
+          "startedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "YYYY-MM-DD, RFC3339, null ou string vazia. Omitir preserva/preenche conforme status."
+          },
+          "completedAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "YYYY-MM-DD, RFC3339, null ou string vazia. Omitir preserva/preenche conforme status."
+          },
+          "private": {
+            "type": "boolean",
+            "description": "Omitir preserva na atualização; na criação usa false."
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "username": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bannerUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "scopes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "displayName",
+          "avatarUrl",
+          "bannerUrl",
+          "bio",
+          "createdAt",
+          "scopes"
+        ]
+      },
+      "HistoryItem": {
+        "type": "object",
+        "properties": {
+          "mediaId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "eventType": {
+            "type": "string"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "previousStatus": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "previousProgress": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "progressDelta": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.5,
+                "maximum": 10,
+                "multipleOf": 0.5
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "repeatCount": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "media": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1
+              },
+              "slug": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "ANIME",
+                  "MANGA"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "coverImage": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "slug",
+              "type",
+              "title",
+              "coverImage"
+            ]
+          }
+        },
+        "required": [
+          "mediaId",
+          "eventType",
+          "status",
+          "previousStatus",
+          "progress",
+          "previousProgress",
+          "progressDelta",
+          "score",
+          "repeatCount",
+          "createdAt",
+          "media"
+        ]
+      },
+      "Collection": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "mediaType": {
+            "type": "string",
+            "enum": [
+              "ANIME",
+              "MANGA"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "color": {
+            "type": "string"
+          },
+          "visibility": {
+            "type": "string"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "coverMediaId": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "position": {
+            "type": "integer"
+          },
+          "publishedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "itemCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "mediaType",
+          "name",
+          "slug",
+          "description",
+          "color",
+          "visibility",
+          "tags",
+          "coverMediaId",
+          "position",
+          "publishedAt",
+          "itemCount",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "Version": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "oauth": {
+            "type": "string"
+          },
+          "authorize": {
+            "type": "string"
+          },
+          "docs": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "version",
+          "oauth",
+          "authorize",
+          "docs"
+        ]
+      },
+      "TokenSet": {
+        "type": "object",
+        "properties": {
+          "access_token": {
+            "type": "string"
+          },
+          "token_type": {
+            "type": "string"
+          },
+          "expires_in": {
+            "type": "integer"
+          },
+          "refresh_token": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "access_token",
+          "token_type",
+          "expires_in",
+          "refresh_token",
+          "scope"
+        ]
+      },
+      "OAuthError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "error_description": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error",
+          "error_description"
+        ]
+      },
+      "WriteResult": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "mediaId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "ok",
+          "mediaId"
+        ]
+      },
+      "DeleteResult": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "mediaId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "removed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok",
+          "mediaId",
+          "removed"
+        ]
+      },
+      "PublicSearchResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicSearchItem"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "MeSearchResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MeSearchItem"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "LibraryResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LibraryEntry"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "HistoryResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HistoryItem"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "CollectionsResult": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Collection"
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      }
+    }
+  }
+}

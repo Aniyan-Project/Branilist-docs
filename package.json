@@ -1,0 +1,11 @@
+{
+  "name": "branilist-public-api-docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Documentação da API pública REST do Branilist",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "check": "node scripts/validate-docs.mjs && node --test examples/examples.test.mjs"
+  }
+}
