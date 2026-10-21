@@ -9,6 +9,7 @@
 5. [Erros e recuperação](errors.md)
 6. [Webhooks](webhooks.md)
 7. [Exemplos executáveis](examples.md)
+8. [Publicação e atualização automática](publishing.md)
 
 ## Referência
 

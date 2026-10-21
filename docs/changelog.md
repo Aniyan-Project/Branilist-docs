@@ -4,6 +4,16 @@
 
 ## 2026-10-21 — Primeira edição
 
+### Site e publicação automática
+
+- Site VitePress no GitHub Pages, com navegação lateral, busca local e temas claro/escuro.
+- Páginas de operações e modelos JSON geradas de `openapi.json`.
+- Descoberta automática de novas páginas Markdown e regeneração de rotas alteradas ou removidas.
+- Validação e publicação por GitHub Actions; pull requests fazem build sem substituir o site público.
+- Guia de manutenção e testes de adição, alteração e remoção de operações.
+
+### Documentação inicial
+
 - Referência das 12 operações REST públicas v1 e dos endpoints de token/revogação.
 - Fluxo OAuth Authorization Code com PKCE S256, renovação e escopos.
 - API keys, quotas, cache, CORS e formatos atuais de erro.

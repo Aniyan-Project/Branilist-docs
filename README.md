@@ -4,6 +4,8 @@ Documentação da API pública REST do [Branilist](https://branilist.com). Consu
 
 **API v1 · REST/JSON · OAuth 2.0 + PKCE · Português**
 
+**[Ler a documentação no site →](https://aniyan-project.github.io/Branilist-docs/guide/introduction.html)**
+
 ```sh
 curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'
 ```
@@ -37,7 +39,7 @@ curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'
 
 ## O que está documentado
 
-Todos os **12 métodos/rotas REST em `/api/v1`**, os dois endpoints de tokens e o fluxo de consentimento no navegador. As APIs de sessão do site, administração, GraphQL e extensão têm contratos próprios e não são intercambiáveis com esta API.
+As operações REST em `/api/v1`, os endpoints de tokens e o fluxo de consentimento no navegador. As APIs de sessão do site, administração, GraphQL e extensão têm contratos próprios e não são intercambiáveis com esta API. A lista de operações do site é gerada a partir do OpenAPI a cada publicação.
 
 Esta documentação foi conferida com a implementação em **21 de outubro de 2026**. Exemplos com mídias, perfis e IDs são ilustrativos; o catálogo e a implantação podem mudar. Consulte o [histórico](docs/changelog.md) e as [limitações atuais](docs/faq.md).
 
@@ -47,4 +49,6 @@ Esta documentação foi conferida com a implementação em **21 de outubro de 20
 - [Como contribuir e validar a documentação](CONTRIBUTING.md)
 - [Relatar um problema na documentação](https://github.com/Aniyan-Project/Branilist-docs/issues)
 
-O conteúdo é mantido em Markdown para leitura e revisão diretamente no GitHub. A organização é inspirada no [repositório de documentação do AniList](https://github.com/AniList/docs); o contrato descrito aqui é o do Branilist.
+O conteúdo é mantido em Markdown para leitura e revisão diretamente no GitHub. O site usa VitePress e é publicado automaticamente no GitHub Pages. Operações e modelos são gerados de `openapi.json`; páginas Markdown entram automaticamente na navegação. Veja [como publicar e adicionar rotas](docs/publishing.md).
+
+A organização é inspirada no [repositório de documentação do AniList](https://github.com/AniList/docs); o contrato descrito aqui é o do Branilist.

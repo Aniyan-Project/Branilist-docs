@@ -57,7 +57,7 @@ console.log(result.data.removed)
 
 ## Ferramentas de API
 
-Importe [openapi.json](../openapi.json) em uma ferramenta compatível com OpenAPI 3.1. A especificação descreve as 14 operações HTTP: 12 em `/api/v1` e 2 de tokens. A página de consentimento no navegador é explicada no guia OAuth.
+Importe [openapi.json](../openapi.json) em uma ferramenta compatível com OpenAPI 3.1. A especificação descreve as operações HTTP públicas e de tokens e alimenta a referência gerada no site. A página de consentimento no navegador é explicada no guia OAuth.
 
 Nos endpoints públicos, configure a API key apenas se sua ferramenta funcionar como cliente de servidor. Nas rotas `/me`, configure OAuth com o escopo exigido. Os exemplos usam uma mídia fictícia de ID 123; não é uma garantia de que esse ID exista.
 

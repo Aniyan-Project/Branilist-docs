@@ -183,7 +183,7 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "description": "ID interno do Branilist, inteiro positivo de 64 bits.",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -242,7 +242,7 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "description": "ID numérico positivo do MyAnimeList, representável em 64 bits.",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -301,7 +301,7 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "description": "ID numérico positivo do AniList, representável em 64 bits.",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -521,7 +521,7 @@
             "name": "mediaId",
             "in": "path",
             "required": true,
-            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "description": "ID interno do Branilist, inteiro positivo de 64 bits.",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -593,7 +593,7 @@
             "name": "mediaId",
             "in": "path",
             "required": true,
-            "description": "Inteiro positivo de 64 bits. IDs externos são resolvidos para o ID interno.",
+            "description": "ID interno do Branilist, inteiro positivo de 64 bits.",
             "schema": {
               "type": "integer",
               "format": "int64",
@@ -1805,7 +1805,14 @@
           "expires_in",
           "refresh_token",
           "scope"
-        ]
+        ],
+        "example": {
+          "access_token": "ACCESS_TOKEN_ILUSTRATIVO",
+          "token_type": "Bearer",
+          "expires_in": 3600,
+          "refresh_token": "REFRESH_TOKEN_ILUSTRATIVO",
+          "scope": "profile:read library:read"
+        }
       },
       "OAuthError": {
         "type": "object",
@@ -1837,7 +1844,11 @@
         "required": [
           "ok",
           "mediaId"
-        ]
+        ],
+        "example": {
+          "ok": true,
+          "mediaId": 123
+        }
       },
       "DeleteResult": {
         "type": "object",
@@ -1858,7 +1869,12 @@
           "ok",
           "mediaId",
           "removed"
-        ]
+        ],
+        "example": {
+          "ok": true,
+          "mediaId": 123,
+          "removed": true
+        }
       },
       "PublicSearchResult": {
         "type": "object",

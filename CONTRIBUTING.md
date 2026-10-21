@@ -7,10 +7,12 @@ Obrigado por ajudar a manter a referência utilizável e fiel à API.
 ```sh
 git clone https://github.com/Aniyan-Project/Branilist-docs.git
 cd Branilist-docs
+npm ci
 npm run check
+npm run docs:build
 ```
 
-Use Node.js 22+. Não há dependências de produção nem processo de build. Os arquivos Markdown são lidos diretamente no GitHub.
+Use Node.js 22+. O site estático usa VitePress. Os arquivos Markdown continuam legíveis diretamente no GitHub; `npm run docs:build` gera a referência a partir de `openapi.json` e prepara o site para o Pages. Veja o [fluxo de publicação](docs/publishing.md).
 
 ## Alterar o contrato
 

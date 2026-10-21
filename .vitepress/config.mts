@@ -1,0 +1,53 @@
+import { defineConfig } from 'vitepress'
+import { readFileSync } from 'node:fs'
+
+const navigation = JSON.parse(readFileSync(new URL('../.site/navigation.json', import.meta.url), 'utf8'))
+const base = '/Branilist-docs/'
+
+export default defineConfig({
+  lang: 'pt-BR',
+  title: 'Branilist API Docs',
+  description: 'Guias e referência da API pública REST do Branilist.',
+  srcDir: '.site',
+  srcExclude: ['navigation.json'],
+  base,
+  cleanUrls: false,
+  appearance: true,
+  head: [['meta', { name: 'color-scheme', content: 'light dark' }]],
+  sitemap: { hostname: 'https://aniyan-project.github.io/Branilist-docs/' },
+  themeConfig: {
+    siteTitle: 'Branilist API Docs',
+    nav: [
+      { text: 'Guia', link: '/guide/introduction', activeMatch: '^/(guide/|$)' },
+      { text: 'Referência', link: '/reference/', activeMatch: '^/reference/' },
+      { text: 'Branilist', link: 'https://branilist.com' }
+    ],
+    sidebar: {
+      '/guide/': navigation.guide,
+      '/reference/': navigation.reference,
+      '/': navigation.guide
+    },
+    socialLinks: [{ icon: 'github', link: 'https://github.com/Aniyan-Project/Branilist-docs' }],
+    search: {
+      provider: 'local',
+      options: {
+        locales: { root: { translations: {
+          button: { buttonText: 'Buscar', buttonAriaLabel: 'Buscar na documentação' },
+          modal: { noResultsText: 'Nenhum resultado para', resetButtonTitle: 'Limpar busca', footer: { selectText: 'selecionar', navigateText: 'navegar', closeText: 'fechar' } }
+        } } }
+      }
+    },
+    outline: { level: [2, 3], label: 'Nesta página' },
+    sidebarMenuLabel: 'Navegação',
+    returnToTopLabel: 'Voltar ao início',
+    darkModeSwitchLabel: 'Aparência',
+    lightModeSwitchTitle: 'Usar tema claro',
+    darkModeSwitchTitle: 'Usar tema escuro',
+    skipToContentLabel: 'Ir para o conteúdo',
+    docFooter: { prev: 'Anterior', next: 'Próxima' },
+    editLink: {
+      text: 'Editar esta página no GitHub',
+      pattern: ({ frontmatter }) => `https://github.com/Aniyan-Project/Branilist-docs/edit/main/${frontmatter.source ?? 'openapi.json'}`
+    }
+  }
+})

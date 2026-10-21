@@ -1,0 +1,562 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-21T21:01:14.574Z",
+  "title": "Design System: Branilist API Docs",
+  "extensions": {
+    "colorMeta": {
+      "brand-light": {
+        "role": "primary",
+        "displayName": "brand-light",
+        "tonalRamp": [
+          "oklch(15.00% 0.1398 46.37)",
+          "oklch(26.43% 0.1398 46.37)",
+          "oklch(37.86% 0.1398 46.37)",
+          "oklch(49.29% 0.1398 46.37)",
+          "oklch(60.71% 0.1398 46.37)",
+          "oklch(72.14% 0.1398 46.37)",
+          "oklch(83.57% 0.1398 46.37)",
+          "oklch(95.00% 0.1398 46.37)"
+        ]
+      },
+      "brand-light-hover": {
+        "role": "primary",
+        "displayName": "brand-light-hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.1529 46.59)",
+          "oklch(26.43% 0.1529 46.59)",
+          "oklch(37.86% 0.1529 46.59)",
+          "oklch(49.29% 0.1529 46.59)",
+          "oklch(60.71% 0.1529 46.59)",
+          "oklch(72.14% 0.1529 46.59)",
+          "oklch(83.57% 0.1529 46.59)",
+          "oklch(95.00% 0.1529 46.59)"
+        ]
+      },
+      "brand-light-solid": {
+        "role": "primary",
+        "displayName": "brand-light-solid",
+        "tonalRamp": [
+          "oklch(15.00% 0.1593 48.00)",
+          "oklch(26.43% 0.1593 48.00)",
+          "oklch(37.86% 0.1593 48.00)",
+          "oklch(49.29% 0.1593 48.00)",
+          "oklch(60.71% 0.1593 48.00)",
+          "oklch(72.14% 0.1593 48.00)",
+          "oklch(83.57% 0.1593 48.00)",
+          "oklch(95.00% 0.1593 48.00)"
+        ]
+      },
+      "brand-light-soft": {
+        "role": "primary",
+        "displayName": "brand-light-soft",
+        "tonalRamp": [
+          "oklch(15.00% 0.1593 48.00)",
+          "oklch(26.43% 0.1593 48.00)",
+          "oklch(37.86% 0.1593 48.00)",
+          "oklch(49.29% 0.1593 48.00)",
+          "oklch(60.71% 0.1593 48.00)",
+          "oklch(72.14% 0.1593 48.00)",
+          "oklch(83.57% 0.1593 48.00)",
+          "oklch(95.00% 0.1593 48.00)"
+        ]
+      },
+      "brand-dark": {
+        "role": "primary",
+        "displayName": "brand-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.1118 59.29)",
+          "oklch(26.43% 0.1118 59.29)",
+          "oklch(37.86% 0.1118 59.29)",
+          "oklch(49.29% 0.1118 59.29)",
+          "oklch(60.71% 0.1118 59.29)",
+          "oklch(72.14% 0.1118 59.29)",
+          "oklch(83.57% 0.1118 59.29)",
+          "oklch(95.00% 0.1118 59.29)"
+        ]
+      },
+      "brand-dark-hover": {
+        "role": "primary",
+        "displayName": "brand-dark-hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.1378 56.65)",
+          "oklch(26.43% 0.1378 56.65)",
+          "oklch(37.86% 0.1378 56.65)",
+          "oklch(49.29% 0.1378 56.65)",
+          "oklch(60.71% 0.1378 56.65)",
+          "oklch(72.14% 0.1378 56.65)",
+          "oklch(83.57% 0.1378 56.65)",
+          "oklch(95.00% 0.1378 56.65)"
+        ]
+      },
+      "brand-dark-solid": {
+        "role": "primary",
+        "displayName": "brand-dark-solid",
+        "tonalRamp": [
+          "oklch(15.00% 0.1524 55.45)",
+          "oklch(26.43% 0.1524 55.45)",
+          "oklch(37.86% 0.1524 55.45)",
+          "oklch(49.29% 0.1524 55.45)",
+          "oklch(60.71% 0.1524 55.45)",
+          "oklch(72.14% 0.1524 55.45)",
+          "oklch(83.57% 0.1524 55.45)",
+          "oklch(95.00% 0.1524 55.45)"
+        ]
+      },
+      "brand-dark-soft": {
+        "role": "primary",
+        "displayName": "brand-dark-soft",
+        "tonalRamp": [
+          "oklch(15.00% 0.1378 56.65)",
+          "oklch(26.43% 0.1378 56.65)",
+          "oklch(37.86% 0.1378 56.65)",
+          "oklch(49.29% 0.1378 56.65)",
+          "oklch(60.71% 0.1378 56.65)",
+          "oklch(72.14% 0.1378 56.65)",
+          "oklch(83.57% 0.1378 56.65)",
+          "oklch(95.00% 0.1378 56.65)"
+        ]
+      },
+      "page-light": {
+        "role": "neutral",
+        "displayName": "page-light",
+        "tonalRamp": [
+          "oklch(15.00% 0.0000 89.88)",
+          "oklch(26.43% 0.0000 89.88)",
+          "oklch(37.86% 0.0000 89.88)",
+          "oklch(49.29% 0.0000 89.88)",
+          "oklch(60.71% 0.0000 89.88)",
+          "oklch(72.14% 0.0000 89.88)",
+          "oklch(83.57% 0.0000 89.88)",
+          "oklch(95.00% 0.0000 89.88)"
+        ]
+      },
+      "sidebar-light": {
+        "role": "neutral",
+        "displayName": "sidebar-light",
+        "tonalRamp": [
+          "oklch(15.00% 0.0013 286.38)",
+          "oklch(26.43% 0.0013 286.38)",
+          "oklch(37.86% 0.0013 286.38)",
+          "oklch(49.29% 0.0013 286.38)",
+          "oklch(60.71% 0.0013 286.38)",
+          "oklch(72.14% 0.0013 286.38)",
+          "oklch(83.57% 0.0013 286.38)",
+          "oklch(95.00% 0.0013 286.38)"
+        ]
+      },
+      "page-dark": {
+        "role": "neutral",
+        "displayName": "page-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.0175 264.03)",
+          "oklch(26.43% 0.0175 264.03)",
+          "oklch(37.86% 0.0175 264.03)",
+          "oklch(49.29% 0.0175 264.03)",
+          "oklch(60.71% 0.0175 264.03)",
+          "oklch(72.14% 0.0175 264.03)",
+          "oklch(83.57% 0.0175 264.03)",
+          "oklch(95.00% 0.0175 264.03)"
+        ]
+      },
+      "sidebar-dark": {
+        "role": "neutral",
+        "displayName": "sidebar-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.0159 261.52)",
+          "oklch(26.43% 0.0159 261.52)",
+          "oklch(37.86% 0.0159 261.52)",
+          "oklch(49.29% 0.0159 261.52)",
+          "oklch(60.71% 0.0159 261.52)",
+          "oklch(72.14% 0.0159 261.52)",
+          "oklch(83.57% 0.0159 261.52)",
+          "oklch(95.00% 0.0159 261.52)"
+        ]
+      },
+      "elevated-dark": {
+        "role": "neutral",
+        "displayName": "elevated-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.0247 263.95)",
+          "oklch(26.43% 0.0247 263.95)",
+          "oklch(37.86% 0.0247 263.95)",
+          "oklch(49.29% 0.0247 263.95)",
+          "oklch(60.71% 0.0247 263.95)",
+          "oklch(72.14% 0.0247 263.95)",
+          "oklch(83.57% 0.0247 263.95)",
+          "oklch(95.00% 0.0247 263.95)"
+        ]
+      },
+      "soft-dark": {
+        "role": "neutral",
+        "displayName": "soft-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.0215 260.54)",
+          "oklch(26.43% 0.0215 260.54)",
+          "oklch(37.86% 0.0215 260.54)",
+          "oklch(49.29% 0.0215 260.54)",
+          "oklch(60.71% 0.0215 260.54)",
+          "oklch(72.14% 0.0215 260.54)",
+          "oklch(83.57% 0.0215 260.54)",
+          "oklch(95.00% 0.0215 260.54)"
+        ]
+      },
+      "text-light": {
+        "role": "neutral",
+        "displayName": "text-light",
+        "tonalRamp": [
+          "oklch(15.00% 0.0120 285.78)",
+          "oklch(26.43% 0.0120 285.78)",
+          "oklch(37.86% 0.0120 285.78)",
+          "oklch(49.29% 0.0120 285.78)",
+          "oklch(60.71% 0.0120 285.78)",
+          "oklch(72.14% 0.0120 285.78)",
+          "oklch(83.57% 0.0120 285.78)",
+          "oklch(95.00% 0.0120 285.78)"
+        ]
+      },
+      "text-dark": {
+        "role": "neutral",
+        "displayName": "text-dark",
+        "tonalRamp": [
+          "oklch(15.00% 0.0121 106.64)",
+          "oklch(26.43% 0.0121 106.64)",
+          "oklch(37.86% 0.0121 106.64)",
+          "oklch(49.29% 0.0121 106.64)",
+          "oklch(60.71% 0.0121 106.64)",
+          "oklch(72.14% 0.0121 106.64)",
+          "oklch(83.57% 0.0121 106.64)",
+          "oklch(95.00% 0.0121 106.64)"
+        ]
+      },
+      "get-light-text": {
+        "role": "secondary",
+        "displayName": "get-light-text",
+        "tonalRamp": [
+          "oklch(15.00% 0.1083 151.33)",
+          "oklch(26.43% 0.1083 151.33)",
+          "oklch(37.86% 0.1083 151.33)",
+          "oklch(49.29% 0.1083 151.33)",
+          "oklch(60.71% 0.1083 151.33)",
+          "oklch(72.14% 0.1083 151.33)",
+          "oklch(83.57% 0.1083 151.33)",
+          "oklch(95.00% 0.1083 151.33)"
+        ]
+      },
+      "get-light-bg": {
+        "role": "secondary",
+        "displayName": "get-light-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.0191 152.82)",
+          "oklch(26.43% 0.0191 152.82)",
+          "oklch(37.86% 0.0191 152.82)",
+          "oklch(49.29% 0.0191 152.82)",
+          "oklch(60.71% 0.0191 152.82)",
+          "oklch(72.14% 0.0191 152.82)",
+          "oklch(83.57% 0.0191 152.82)",
+          "oklch(95.00% 0.0191 152.82)"
+        ]
+      },
+      "post-light-text": {
+        "role": "secondary",
+        "displayName": "post-light-text",
+        "tonalRamp": [
+          "oklch(15.00% 0.1809 265.64)",
+          "oklch(26.43% 0.1809 265.64)",
+          "oklch(37.86% 0.1809 265.64)",
+          "oklch(49.29% 0.1809 265.64)",
+          "oklch(60.71% 0.1809 265.64)",
+          "oklch(72.14% 0.1809 265.64)",
+          "oklch(83.57% 0.1809 265.64)",
+          "oklch(95.00% 0.1809 265.64)"
+        ]
+      },
+      "post-light-bg": {
+        "role": "secondary",
+        "displayName": "post-light-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.0199 267.29)",
+          "oklch(26.43% 0.0199 267.29)",
+          "oklch(37.86% 0.0199 267.29)",
+          "oklch(49.29% 0.0199 267.29)",
+          "oklch(60.71% 0.0199 267.29)",
+          "oklch(72.14% 0.0199 267.29)",
+          "oklch(83.57% 0.0199 267.29)",
+          "oklch(95.00% 0.0199 267.29)"
+        ]
+      },
+      "put-patch-light-text": {
+        "role": "secondary",
+        "displayName": "put-patch-light-text",
+        "tonalRamp": [
+          "oklch(15.00% 0.1247 46.20)",
+          "oklch(26.43% 0.1247 46.20)",
+          "oklch(37.86% 0.1247 46.20)",
+          "oklch(49.29% 0.1247 46.20)",
+          "oklch(60.71% 0.1247 46.20)",
+          "oklch(72.14% 0.1247 46.20)",
+          "oklch(83.57% 0.1247 46.20)",
+          "oklch(95.00% 0.1247 46.20)"
+        ]
+      },
+      "put-patch-light-bg": {
+        "role": "secondary",
+        "displayName": "put-patch-light-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.0349 81.28)",
+          "oklch(26.43% 0.0349 81.28)",
+          "oklch(37.86% 0.0349 81.28)",
+          "oklch(49.29% 0.0349 81.28)",
+          "oklch(60.71% 0.0349 81.28)",
+          "oklch(72.14% 0.0349 81.28)",
+          "oklch(83.57% 0.0349 81.28)",
+          "oklch(95.00% 0.0349 81.28)"
+        ]
+      },
+      "delete-light-text": {
+        "role": "secondary",
+        "displayName": "delete-light-text",
+        "tonalRamp": [
+          "oklch(15.00% 0.1713 13.70)",
+          "oklch(26.43% 0.1713 13.70)",
+          "oklch(37.86% 0.1713 13.70)",
+          "oklch(49.29% 0.1713 13.70)",
+          "oklch(60.71% 0.1713 13.70)",
+          "oklch(72.14% 0.1713 13.70)",
+          "oklch(83.57% 0.1713 13.70)",
+          "oklch(95.00% 0.1713 13.70)"
+        ]
+      },
+      "delete-light-bg": {
+        "role": "secondary",
+        "displayName": "delete-light-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.0252 359.14)",
+          "oklch(26.43% 0.0252 359.14)",
+          "oklch(37.86% 0.0252 359.14)",
+          "oklch(49.29% 0.0252 359.14)",
+          "oklch(60.71% 0.0252 359.14)",
+          "oklch(72.14% 0.0252 359.14)",
+          "oklch(83.57% 0.0252 359.14)",
+          "oklch(95.00% 0.0252 359.14)"
+        ]
+      },
+      "get-dark-text": {
+        "role": "secondary",
+        "displayName": "get-dark-text",
+        "tonalRamp": [
+          "oklch(15.00% 0.0978 153.47)",
+          "oklch(26.43% 0.0978 153.47)",
+          "oklch(37.86% 0.0978 153.47)",
+          "oklch(49.29% 0.0978 153.47)",
+          "oklch(60.71% 0.0978 153.47)",
+          "oklch(72.14% 0.0978 153.47)",
+          "oklch(83.57% 0.0978 153.47)",
+          "oklch(95.00% 0.0978 153.47)"
+        ]
+      },
+      "get-dark-bg": {
+        "role": "secondary",
+        "displayName": "get-dark-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.0428 162.80)",
+          "oklch(26.43% 0.0428 162.80)",
+          "oklch(37.86% 0.0428 162.80)",
+          "oklch(49.29% 0.0428 162.80)",
+          "oklch(60.71% 0.0428 162.80)",
+          "oklch(72.14% 0.0428 162.80)",
+          "oklch(83.57% 0.0428 162.80)",
+          "oklch(95.00% 0.0428 162.80)"
+        ]
+      },
+      "post-dark-text": {
+        "role": "secondary",
+        "displayName": "post-dark-text",
+        "tonalRamp": [
+          "oklch(15.00% 0.0767 264.39)",
+          "oklch(26.43% 0.0767 264.39)",
+          "oklch(37.86% 0.0767 264.39)",
+          "oklch(49.29% 0.0767 264.39)",
+          "oklch(60.71% 0.0767 264.39)",
+          "oklch(72.14% 0.0767 264.39)",
+          "oklch(83.57% 0.0767 264.39)",
+          "oklch(95.00% 0.0767 264.39)"
+        ]
+      },
+      "post-dark-bg": {
+        "role": "secondary",
+        "displayName": "post-dark-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.0610 261.62)",
+          "oklch(26.43% 0.0610 261.62)",
+          "oklch(37.86% 0.0610 261.62)",
+          "oklch(49.29% 0.0610 261.62)",
+          "oklch(60.71% 0.0610 261.62)",
+          "oklch(72.14% 0.0610 261.62)",
+          "oklch(83.57% 0.0610 261.62)",
+          "oklch(95.00% 0.0610 261.62)"
+        ]
+      },
+      "put-patch-dark-text": {
+        "role": "secondary",
+        "displayName": "put-patch-dark-text",
+        "tonalRamp": [
+          "oklch(15.00% 0.0878 78.03)",
+          "oklch(26.43% 0.0878 78.03)",
+          "oklch(37.86% 0.0878 78.03)",
+          "oklch(49.29% 0.0878 78.03)",
+          "oklch(60.71% 0.0878 78.03)",
+          "oklch(72.14% 0.0878 78.03)",
+          "oklch(83.57% 0.0878 78.03)",
+          "oklch(95.00% 0.0878 78.03)"
+        ]
+      },
+      "put-patch-dark-bg": {
+        "role": "secondary",
+        "displayName": "put-patch-dark-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.0397 68.56)",
+          "oklch(26.43% 0.0397 68.56)",
+          "oklch(37.86% 0.0397 68.56)",
+          "oklch(49.29% 0.0397 68.56)",
+          "oklch(60.71% 0.0397 68.56)",
+          "oklch(72.14% 0.0397 68.56)",
+          "oklch(83.57% 0.0397 68.56)",
+          "oklch(95.00% 0.0397 68.56)"
+        ]
+      },
+      "delete-dark-text": {
+        "role": "secondary",
+        "displayName": "delete-dark-text",
+        "tonalRamp": [
+          "oklch(15.00% 0.0883 4.01)",
+          "oklch(26.43% 0.0883 4.01)",
+          "oklch(37.86% 0.0883 4.01)",
+          "oklch(49.29% 0.0883 4.01)",
+          "oklch(60.71% 0.0883 4.01)",
+          "oklch(72.14% 0.0883 4.01)",
+          "oklch(83.57% 0.0883 4.01)",
+          "oklch(95.00% 0.0883 4.01)"
+        ]
+      },
+      "delete-dark-bg": {
+        "role": "secondary",
+        "displayName": "delete-dark-bg",
+        "tonalRamp": [
+          "oklch(15.00% 0.0500 357.94)",
+          "oklch(26.43% 0.0500 357.94)",
+          "oklch(37.86% 0.0500 357.94)",
+          "oklch(49.29% 0.0500 357.94)",
+          "oklch(60.71% 0.0500 357.94)",
+          "oklch(72.14% 0.0500 357.94)",
+          "oklch(83.57% 0.0500 357.94)",
+          "oklch(95.00% 0.0500 357.94)"
+        ]
+      }
+    },
+    "breakpoints": [
+      {
+        "name": "Título ampliado",
+        "value": "768px"
+      },
+      {
+        "name": "Lateral persistente",
+        "value": "960px"
+      },
+      {
+        "name": "Índice lateral",
+        "value": "1280px"
+      }
+    ],
+    "motion": [
+      {
+        "name": "Link de navegação",
+        "value": "color .25s",
+        "purpose": "Transição herdada do VitePress."
+      }
+    ],
+    "focus": [
+      {
+        "name": "Foco visível",
+        "value": "outline: 2px solid var(--vp-c-brand-1); outline-offset: 4px;"
+      }
+    ],
+    "selection": "color: var(--vp-c-text-1); background: var(--vp-c-brand-soft);",
+    "rampNote": "Rampas OKLCH sintetizadas para exploração no painel; os valores aplicados são os tokens do frontmatter, não estas rampas."
+  },
+  "components": [
+    {
+      "name": "GET",
+      "kind": "chip",
+      "refersTo": "method-get",
+      "description": "Identificador informativo de método HTTP, sem interação.",
+      "html": "<span class=\"ds-method ds-get\">GET</span>",
+      "css": ".ds-method { font: 700 .75rem/1.5 var(--vp-font-family-mono, ui-monospace, Menlo, Monaco, Consolas, monospace); padding: .2rem .5rem; border-radius: 5px; } .ds-get { color: #166534; background: #e7f4ea; }"
+    },
+    {
+      "name": "POST",
+      "kind": "chip",
+      "refersTo": "method-post",
+      "description": "Identificador informativo de método HTTP, sem interação.",
+      "html": "<span class=\"ds-method ds-post\">POST</span>",
+      "css": ".ds-method { font: 700 .75rem/1.5 var(--vp-font-family-mono, ui-monospace, Menlo, Monaco, Consolas, monospace); padding: .2rem .5rem; border-radius: 5px; } .ds-post { color: #1e40af; background: #eaf0fe; }"
+    },
+    {
+      "name": "PUT / PATCH",
+      "kind": "chip",
+      "refersTo": "method-put-patch",
+      "description": "Identificador informativo de método HTTP, sem interação.",
+      "html": "<span class=\"ds-method ds-put\">PUT</span>",
+      "css": ".ds-method { font: 700 .75rem/1.5 var(--vp-font-family-mono, ui-monospace, Menlo, Monaco, Consolas, monospace); padding: .2rem .5rem; border-radius: 5px; } .ds-put { color: #92400e; background: #fff1d9; }"
+    },
+    {
+      "name": "DELETE",
+      "kind": "chip",
+      "refersTo": "method-delete",
+      "description": "Identificador informativo de método HTTP, sem interação.",
+      "html": "<span class=\"ds-method ds-delete\">DELETE</span>",
+      "css": ".ds-method { font: 700 .75rem/1.5 var(--vp-font-family-mono, ui-monospace, Menlo, Monaco, Consolas, monospace); padding: .2rem .5rem; border-radius: 5px; } .ds-delete { color: #9f1239; background: #ffe9ef; }"
+    },
+    {
+      "name": "Navegação principal",
+      "kind": "nav",
+      "description": "Links do cabeçalho com marca no item atual e no hover.",
+      "html": "<nav aria-label=\"Principal\"><a class=\"ds-nav ds-current\" href=\"#guia\" aria-current=\"page\">Guia</a><a class=\"ds-nav\" href=\"#referencia\">Referência</a></nav>",
+      "css": ".ds-nav { display: inline-flex; align-items: center; padding: 0 12px; line-height: var(--vp-nav-height, 64px); font-family: var(--vp-font-family-base, Inter, sans-serif); font-size: 14px; font-weight: 500; color: var(--vp-c-text-1, #3c3c43); text-decoration: none; transition: color .25s; } .ds-current, .ds-nav:hover { color: var(--vp-c-brand-1, #a54708); } .ds-nav:focus-visible { outline: 2px solid var(--vp-c-brand-1, #a54708); outline-offset: 4px; }"
+    },
+    {
+      "name": "Cabeçalho de operação",
+      "kind": "custom",
+      "description": "Método e caminho com quebra flexível.",
+      "html": "<div class=\"ds-endpoint\"><span class=\"ds-method ds-get\">GET</span><code class=\"ds-path\">/api/anime/{id}</code></div>",
+      "css": ".ds-method { font: 700 .75rem/1.5 var(--vp-font-family-mono, ui-monospace, Menlo, Monaco, Consolas, monospace); padding: .2rem .5rem; border-radius: 5px; } .ds-get { color: #166534; background: #e7f4ea; } .ds-endpoint { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem; margin-block:1.5rem; } .ds-path { overflow-wrap:anywhere; font-family:var(--vp-font-family-mono, monospace); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Documentação para leitura",
+    "overview": "A direção confirmada é a organização familiar de documentação VitePress, com a referência de leitura do AniList. A interface em português privilegia localizar uma operação, entender parâmetros e ler exemplos. O nome Branilist e o acento quente identificam o site sem disputar atenção com o texto.\n\nO tema padrão do VitePress fornece os componentes e a hierarquia. As personalizações observadas ajustam a marca, os fundos escuros, a legibilidade e os identificadores HTTP. Esta documentação descreve a implementação atual; os valores herdados continuam sob responsabilidade do tema instalado.",
+    "keyCharacteristics": [
+      "Leitura central com navegação lateral e índice contextual.",
+      "Acento quente com pares específicos para temas claro e escuro.",
+      "Código e identificadores de API em tipografia monoespaçada.",
+      "Controles e padrões de navegação familiares do VitePress."
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Method Rule",
+        "body": "A cor de método acompanha sempre seu identificador textual; PUT e PATCH compartilham o mesmo par.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "**Do** manter a leitura e a navegação familiares do VitePress.",
+      "**Do** usar os pares claros e escuros existentes para marca, superfícies e métodos.",
+      "**Do** preservar identificadores curtos nas tabelas e permitir quebra de caminhos longos nos cabeçalhos de operação.",
+      "**Do** preservar foco visível, seleção legível e preferência por movimento reduzido."
+    ],
+    "donts": [
+      "**Don't** transformar a documentação em uma landing page promocional.",
+      "**Don't** comunicar métodos HTTP somente pela cor.",
+      "**Don't** aplicar a entrelinha de parágrafos a todos os controles e tabelas."
+    ]
+  }
+}
