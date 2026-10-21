@@ -1,6 +1,7 @@
 import { readFile, writeFile, readdir, mkdir, rm, copyFile } from 'node:fs/promises'
 import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
+import { localizeSite } from './localize-site.mjs'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace']
@@ -199,13 +200,13 @@ export async function generateSite(root = projectRoot) {
     guide: [{ text: 'Guia da API', items: guideItems }],
     reference: [{ text: 'Visão geral', items: [{ text: 'Todas as operações', link: '/reference/' }, ...manualReference] }, ...[...apiGroups].map(([text, items]) => ({ text, collapsed: false, items })), { text: 'Modelos JSON', collapsed: true, items: schemaItems }]
   }
-  await writeFile(join(out,'navigation.json'),JSON.stringify(navigation,null,2)+'\n')
+  const locales = await localizeSite(root,out,navigation)
   for (const source of attachments) {
     const target = source === 'openapi.json' ? join(out,'public','openapi.json') : join(out,'public','downloads',source)
     await mkdir(dirname(target),{ recursive:true })
     await copyFile(join(root,source),target)
   }
-  return { operations: operationLinks.size, schemas: schemaItems.length, pages: pages.size, navigation }
+  return { operations: operationLinks.size, schemas: schemaItems.length, pages: pages.size, navigation, locales }
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

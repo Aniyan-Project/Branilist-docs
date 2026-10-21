@@ -28,7 +28,7 @@ Navegação lateral, índice por página, busca local, temas claro/escuro, exemp
 
 ## Brand Commitments
 
-Nome Branilist. Idioma português. O usuário escolheu o site docs.anilist.co/guide/introduction como referência de leitura e organização; manter uma interface de documentação, sem criar uma landing page promocional.
+Nome Branilist. Português na raiz, Inglês em /en/ e Espanhol em /es/, com seletor que preserva a página atual. O usuário escolheu o site docs.anilist.co/guide/introduction como referência de leitura e organização; manter uma interface de documentação, sem criar uma landing page promocional.
 
 ## Evidence on Hand
 

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { readFileSync } from 'node:fs'
+import { locales, searchLocales } from './locales.mts'
 
 const navigation = JSON.parse(readFileSync(new URL('../.site/navigation.json', import.meta.url), 'utf8'))
 const base = '/Branilist-docs/'
@@ -13,6 +14,7 @@ export default defineConfig({
   base,
   cleanUrls: false,
   appearance: true,
+  locales,
   head: [['meta', { name: 'color-scheme', content: 'light dark' }]],
   sitemap: { hostname: 'https://aniyan-project.github.io/Branilist-docs/' },
   themeConfig: {
@@ -31,10 +33,7 @@ export default defineConfig({
     search: {
       provider: 'local',
       options: {
-        locales: { root: { translations: {
-          button: { buttonText: 'Buscar', buttonAriaLabel: 'Buscar na documentação' },
-          modal: { noResultsText: 'Nenhum resultado para', resetButtonTitle: 'Limpar busca', footer: { selectText: 'selecionar', navigateText: 'navegar', closeText: 'fechar' } }
-        } } }
+        locales: searchLocales
       }
     },
     outline: { level: [2, 3], label: 'Nesta página' },

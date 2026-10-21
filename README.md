@@ -2,9 +2,11 @@
 
 Documentação da API pública REST do [Branilist](https://branilist.com). Consulte anime e mangá, conecte uma conta com OAuth e gerencie a biblioteca do usuário com consentimento.
 
-**API v1 · REST/JSON · OAuth 2.0 + PKCE · Português**
+**API v1 · REST/JSON · OAuth 2.0 + PKCE · Português / English / Español**
 
 **[Ler a documentação no site →](https://aniyan-project.github.io/Branilist-docs/guide/introduction.html)**
+
+[Português](https://aniyan-project.github.io/Branilist-docs/guide/introduction.html) · [English](https://aniyan-project.github.io/Branilist-docs/en/guide/introduction.html) · [Español](https://aniyan-project.github.io/Branilist-docs/es/guide/introduction.html)
 
 ```sh
 curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'

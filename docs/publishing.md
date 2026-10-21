@@ -14,6 +14,12 @@ Pull requests passam pela validação e build, mas não substituem a versão pú
 
 **Não use `[skip ci]` em alterações que precisam disparar a publicação por push.** Esse marcador impede o início do workflow de publicação. Se um commit já foi enviado com o marcador, execute o workflow manualmente.
 
+## Idiomas
+
+Português permanece na raiz, Inglês usa `/en/` e Espanhol usa `/es/`. O seletor preserva a página atual. As traduções Markdown seguem os caminhos originais dentro de `locales/en/` e `locales/es/`; a referência gerada usa o `messages.json` de cada idioma. Campos, rotas, escopos, valores de enumeração e exemplos técnicos mantêm os identificadores da API.
+
+Ao alterar guias ou descrições do OpenAPI, atualize também as traduções. Uma nova guia sem tradução aparece com um aviso explícito e o original em Português. Não edite `.site/`: o conteúdo é regenerado em cada publicação.
+
 ## Documentar uma rota nova
 
 Adicione a operação sob `paths` em `openapi.json`. Inclua método, `operationId` único, título `summary`, tag, autenticação, parâmetros e respostas. Para um corpo JSON, adicione `requestBody` e o schema correspondente em `components.schemas` quando necessário.

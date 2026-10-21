@@ -6,6 +6,7 @@
 
 ### Site e publicação automática
 
+- Documentação em Português, Inglês e Espanhol, com navegação, busca e seletor que preserva a página atual.
 - Site VitePress no GitHub Pages, com navegação lateral, busca local e temas claro/escuro.
 - Páginas de operações e modelos JSON geradas de `openapi.json`.
 - Descoberta automática de novas páginas Markdown e regeneração de rotas alteradas ou removidas.
