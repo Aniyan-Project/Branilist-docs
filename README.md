@@ -22,6 +22,7 @@ curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'
 | Encontrar mídia por ID Branilist, MyAnimeList ou AniList | [Catálogo e busca](docs/reference/catalog.md) |
 | Ler, atualizar ou remover itens da biblioteca | [Biblioteca](docs/reference/library.md) |
 | Ler perfil, histórico e coleções | [Conta do usuário](docs/reference/account.md) |
+| Consultar dados públicos de outra pessoa | [Usuários públicos](docs/reference/public-users.md) |
 | Entender os campos das respostas | [Modelos e convenções](docs/reference/models.md) |
 | Tratar falhas e limites | [Erros](docs/errors.md) · [Limites e cache](docs/rate-limits.md) |
 | Receber eventos | [Webhooks](docs/webhooks.md) |

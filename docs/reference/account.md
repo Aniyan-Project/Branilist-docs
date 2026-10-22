@@ -4,6 +4,8 @@
 
 Todas as chamadas usam `Authorization: Bearer ACCESS_TOKEN`. API keys não dão acesso a essas rotas.
 
+As rotas `/me` consultam o dono do token. Para consultar outra pessoa, veja [dados públicos de usuários](public-users.md).
+
 | Método | Caminho | Escopo |
 | --- | --- | --- |
 | GET | `/api/v1/me` | `profile:read` |

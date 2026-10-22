@@ -16,6 +16,7 @@
 - [Catálogo, IDs externos, búsqueda y versión](reference/catalog.md)
 - [Biblioteca: lectura, actualización y eliminación](reference/library.md)
 - [Perfil, búsqueda autenticada, historial y colecciones](reference/account.md)
+- [Datos públicos de otros usuarios](reference/public-users.md)
 - [Modelos JSON y convenciones](reference/models.md)
 - [OpenAPI 3.1](../../../openapi.json)
 

@@ -2,6 +2,12 @@
 
 [Índice](README.md)
 
+## 2026-10-22 — Consultas de usuarios públicos
+
+- Perfil, biblioteca, actividad publicada y colecciones de otros usuarios por ID o username, con OAuth y los scopes de lectura existentes.
+- Visibilidad PUBLIC, bloqueos bidireccionales, exclusión de entradas privadas y colecciones PRIVATE/UNLISTED.
+- Paginación y documentación en tres idiomas. La disponibilidad depende del despliegue correspondiente de la API.
+
 ## 2026-10-21
 
 - Documentación disponible en portugués, inglés y español, con selector que conserva la página actual.

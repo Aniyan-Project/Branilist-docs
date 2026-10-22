@@ -2,6 +2,12 @@
 
 [Índice](README.md)
 
+## 2026-10-22 — Consultas de usuários públicos
+
+- Perfil, biblioteca, atividade publicada e coleções de outro usuário, por ID ou username, com OAuth e os escopos de leitura existentes.
+- Privacidade PUBLIC, bloqueios bidirecionais, filtro de entradas privadas e coleções PRIVATE/UNLISTED.
+- Paginação e documentação nos três idiomas. A disponibilidade depende da implantação correspondente da API.
+
 ## 2026-10-21 — Primeira edição
 
 ### Site e publicação automática

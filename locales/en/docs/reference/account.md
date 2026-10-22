@@ -4,6 +4,8 @@
 
 All calls use `Authorization: Bearer ACCESS_TOKEN`. API keys cannot access these endpoints.
 
+`/me` endpoints query the token owner. For another person, see [public user data](public-users.md).
+
 | Method | Path | Scope |
 | --- | --- | --- |
 | GET | `/api/v1/me` | `profile:read` |

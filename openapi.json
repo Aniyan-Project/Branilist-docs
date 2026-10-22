@@ -31,6 +31,9 @@
     },
     {
       "name": "OAuth"
+    },
+    {
+      "name": "Usuários públicos"
     }
   ],
   "paths": {
@@ -828,6 +831,902 @@
         "responses": {
           "200": {
             "description": "Token tratado; resposta sem corpo."
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/id/{id}": {
+      "get": {
+        "operationId": "getPublicUserById",
+        "summary": "Perfil público por ID",
+        "description": "Exige perfil PUBLIC e conta ativa. Bloqueios entre o dono do token e o alvo retornam 404. Não inclui email, scopes ou campos administrativos. Nem o próprio dono acessa perfil PRIVATE ou FOLLOWERS por esta rota. Cache-Control: private, no-store.",
+        "tags": [
+          "Usuários públicos"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "profile:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID interno do usuário Branilist, inteiro positivo de 64 bits.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "example": 42
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicUserProfile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID, username ou paginação inválidos.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/id/{id}/library": {
+      "get": {
+        "operationId": "getPublicUserLibraryById",
+        "summary": "Biblioteca pública por ID",
+        "description": "Exige perfil e listas PUBLIC. Omite entradas privadas, mesmo para o dono. Ordena por updatedAt e mediaId decrescentes. Conteúdo adulto depende da configuração global e da preferência do dono do token. Paginação aplicada após os filtros. Cache-Control: private, no-store.",
+        "tags": [
+          "Usuários públicos"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "library:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID interno do usuário Branilist, inteiro positivo de 64 bits.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "example": 42
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Tamanho da página, de 1 a 100. Padrão 20. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Deslocamento de 0 a 10000. Padrão 0. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicUserLibraryPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID, username ou paginação inválidos.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/id/{id}/activity": {
+      "get": {
+        "operationId": "getPublicUserActivityById",
+        "summary": "Atividade pública por ID",
+        "description": "Exige perfil, listas e atividade PUBLIC. Lista somente eventos MEDIA_LIST publicados no feed com entrada atual não privada; não expõe o histórico de auditoria de /me/activity, remoções, reviews, follows ou posts. Ordena por createdAt e id decrescentes. Aplica preferências de conteúdo adulto do dono do token. Cache-Control: private, no-store.",
+        "tags": [
+          "Usuários públicos"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "activity:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID interno do usuário Branilist, inteiro positivo de 64 bits.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "example": 42
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Tamanho da página, de 1 a 100. Padrão 20. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Deslocamento de 0 a 10000. Padrão 0. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicUserActivityPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID, username ou paginação inválidos.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/id/{id}/collections": {
+      "get": {
+        "operationId": "getPublicUserCollectionsById",
+        "summary": "Coleções públicas por ID",
+        "description": "Exige perfil e listas PUBLIC. Inclui somente coleções PUBLIC; exclui PRIVATE e UNLISTED, mesmo para o dono. Ordena por position crescente, createdAt e id decrescentes. Inclui itemCount, sem os itens da coleção. Cache-Control: private, no-store.",
+        "tags": [
+          "Usuários públicos"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "collections:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID interno do usuário Branilist, inteiro positivo de 64 bits.",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 1
+            },
+            "example": 42
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Tamanho da página, de 1 a 100. Padrão 20. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Deslocamento de 0 a 10000. Padrão 0. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicUserCollectionsPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID, username ou paginação inválidos.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/by-username/{username}": {
+      "get": {
+        "operationId": "getPublicUserByUsername",
+        "summary": "Perfil público por username",
+        "description": "Exige perfil PUBLIC e conta ativa. Bloqueios entre o dono do token e o alvo retornam 404. Não inclui email, scopes ou campos administrativos. Nem o próprio dono acessa perfil PRIVATE ou FOLLOWERS por esta rota. Cache-Control: private, no-store.",
+        "tags": [
+          "Usuários públicos"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "profile:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "description": "Username de 3 a 24 caracteres ASCII: letras, números ou underscore. Consulta sem distinção de maiúsculas.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]{3,24}$"
+            },
+            "example": "example"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicUserProfile"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID, username ou paginação inválidos.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/by-username/{username}/library": {
+      "get": {
+        "operationId": "getPublicUserLibraryByUsername",
+        "summary": "Biblioteca pública por username",
+        "description": "Exige perfil e listas PUBLIC. Omite entradas privadas, mesmo para o dono. Ordena por updatedAt e mediaId decrescentes. Conteúdo adulto depende da configuração global e da preferência do dono do token. Paginação aplicada após os filtros. Cache-Control: private, no-store.",
+        "tags": [
+          "Usuários públicos"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "library:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "description": "Username de 3 a 24 caracteres ASCII: letras, números ou underscore. Consulta sem distinção de maiúsculas.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]{3,24}$"
+            },
+            "example": "example"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Tamanho da página, de 1 a 100. Padrão 20. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Deslocamento de 0 a 10000. Padrão 0. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicUserLibraryPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID, username ou paginação inválidos.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/by-username/{username}/activity": {
+      "get": {
+        "operationId": "getPublicUserActivityByUsername",
+        "summary": "Atividade pública por username",
+        "description": "Exige perfil, listas e atividade PUBLIC. Lista somente eventos MEDIA_LIST publicados no feed com entrada atual não privada; não expõe o histórico de auditoria de /me/activity, remoções, reviews, follows ou posts. Ordena por createdAt e id decrescentes. Aplica preferências de conteúdo adulto do dono do token. Cache-Control: private, no-store.",
+        "tags": [
+          "Usuários públicos"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "activity:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "description": "Username de 3 a 24 caracteres ASCII: letras, números ou underscore. Consulta sem distinção de maiúsculas.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]{3,24}$"
+            },
+            "example": "example"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Tamanho da página, de 1 a 100. Padrão 20. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Deslocamento de 0 a 10000. Padrão 0. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicUserActivityPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID, username ou paginação inválidos.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              },
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/by-username/{username}/collections": {
+      "get": {
+        "operationId": "getPublicUserCollectionsByUsername",
+        "summary": "Coleções públicas por username",
+        "description": "Exige perfil e listas PUBLIC. Inclui somente coleções PUBLIC; exclui PRIVATE e UNLISTED, mesmo para o dono. Ordena por position crescente, createdAt e id decrescentes. Inclui itemCount, sem os itens da coleção. Cache-Control: private, no-store.",
+        "tags": [
+          "Usuários públicos"
+        ],
+        "security": [
+          {
+            "OAuth2": [
+              "collections:read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "description": "Username de 3 a 24 caracteres ASCII: letras, números ou underscore. Consulta sem distinção de maiúsculas.",
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_]{3,24}$"
+            },
+            "example": "example"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Tamanho da página, de 1 a 100. Padrão 20. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Deslocamento de 0 a 10000. Padrão 0. Valor inválido retorna 400.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicUserCollectionsPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ID, username ou paginação inválidos.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           },
           "default": {
             "description": "Erro conforme a referência: JSON OAuth ou texto simples. Infraestrutura pode produzir outros formatos.",
@@ -1944,6 +2843,252 @@
         },
         "required": [
           "items"
+        ]
+      },
+      "PublicUserProfile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "username": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bannerUrl": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bio": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "displayName",
+          "avatarUrl",
+          "bannerUrl",
+          "bio",
+          "createdAt"
+        ]
+      },
+      "PublicUserActivity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "MEDIA_LIST"
+            ]
+          },
+          "mediaId": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 1
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "progress": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "media": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64",
+                "minimum": 1
+              },
+              "slug": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "ANIME",
+                  "MANGA"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "coverImage": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "slug",
+              "type",
+              "title",
+              "coverImage"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "mediaId",
+          "status",
+          "progress",
+          "createdAt",
+          "media"
+        ]
+      },
+      "PublicUserLibraryPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LibraryEntry"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "hasMore": {
+            "type": "boolean",
+            "description": "Há mais resultados após esta página; alterações concorrentes podem deslocar páginas."
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset",
+          "hasMore"
+        ]
+      },
+      "PublicUserActivityPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PublicUserActivity"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "hasMore": {
+            "type": "boolean",
+            "description": "Há mais resultados após esta página; alterações concorrentes podem deslocar páginas."
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset",
+          "hasMore"
+        ]
+      },
+      "PublicUserCollectionsPage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Collection"
+            }
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "hasMore": {
+            "type": "boolean",
+            "description": "Há mais resultados após esta página; alterações concorrentes podem deslocar páginas."
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset",
+          "hasMore"
         ]
       }
     }

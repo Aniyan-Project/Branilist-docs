@@ -2,6 +2,12 @@
 
 [Index](README.md)
 
+## 2026-10-22 — Public user queries
+
+- Other users' profiles, libraries, published activity and collections by ID or username, using OAuth and existing read scopes.
+- PUBLIC visibility, bidirectional blocks, private-entry filtering and exclusion of PRIVATE/UNLISTED collections.
+- Pagination and three-language documentation. Availability depends on the corresponding API deployment.
+
 ## 2026-10-21 — Languages
 
 - Portuguese, English, and Spanish versions with a language selector.

@@ -4,6 +4,8 @@
 
 Todas las solicitudes usan `Authorization: Bearer ACCESS_TOKEN`. Las API keys no permiten acceder a estas rutas.
 
+Las rutas `/me` consultan al propietario del token. Para otra persona, consulta [datos públicos de usuarios](public-users.md).
+
 | Método | Ruta | Scope |
 | --- | --- | --- |
 | GET | `/api/v1/me` | `profile:read` |
