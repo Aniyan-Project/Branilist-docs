@@ -1,6 +1,6 @@
 # OAuth 2.0 con PKCE
 
-[Índice](README.md) · [API keys](api-keys.md) · [Ejemplo PKCE](../../../examples/pkce.mjs)
+[Índice](README.md) · [API keys](api-keys.md) · [Ejemplo PKCE](../../../examples/pkce.mjs) · [Comunidad, reviews y notificaciones](community.md)
 
 Branilist utiliza **Authorization Code + PKCE S256**. La autorización se realiza en el navegador; el intercambio y la renovación usan formularios HTTP. No solicites la contraseña de Branilist al usuario.
 

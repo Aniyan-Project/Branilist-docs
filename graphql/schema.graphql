@@ -10,6 +10,10 @@ type APIInfo { name: String! version: String! schemaUrl: String! }
 type MediaTitle { romaji: String! english: String native: String portuguese: String }
 
 type Query {
+  review(id: ID!): SocialReview
+  reviews(mediaId: ID!, first: Int! = 20, offset: Int! = 0): SocialReviewPage
+  comments(mediaId: ID, reviewId: ID, activityId: ID, first: Int! = 20, offset: Int! = 0): SocialCommentPage
+  post(id: ID!): SocialPost
   api: APIInfo!
   """Supply exactly one of id, malId or anilistId. Only existing catalog mappings are used."""
   media(id: ID, malId: ID, anilistId: ID): Media
@@ -74,6 +78,10 @@ type MediaRelationPage { nodes: [MediaRelation!]! pageInfo: PageInfo! }
 
 """Public profile only. Private/followers-only accounts and blocks are never bypassed."""
 type User {
+  followers(first: Int! = 20, offset: Int! = 0): SocialActorPage
+  following(first: Int! = 20, offset: Int! = 0): SocialActorPage
+  posts(first: Int! = 20, offset: Int! = 0): SocialPostPage
+  reviews(first: Int! = 20, offset: Int! = 0): SocialReviewPage
   id: ID!
   username: String!
   displayName: String!
@@ -90,6 +98,17 @@ type User {
 }
 type Profile { id: ID! username: String! displayName: String! avatarUrl: String bannerUrl: String bio: String createdAt: Time! }
 type Viewer {
+  feed(scope: CommunityFeedScope! = FOLLOWING, types: [CommunityActivityType!]! = [], first: Int! = 20, offset: Int! = 0): SocialActivityPage
+  followers(first: Int! = 20, offset: Int! = 0): SocialActorPage
+  following(first: Int! = 20, offset: Int! = 0): SocialActorPage
+  posts(first: Int! = 20, offset: Int! = 0): SocialPostPage
+  myReview(mediaId: ID!): SocialReview
+  notifications(first: Int! = 20, offset: Int! = 0): SocialNotificationPage
+  unreadNotificationCount: Int
+  notificationPreferences: SocialNotificationPreferences
+  notificationTypePreferences: [SocialNotificationTypePreference!]
+  blockedUsers(first: Int! = 20, offset: Int! = 0): SocialActorPage
+  mutedUsers(first: Int! = 20, offset: Int! = 0): SocialActorPage
   id: ID!
   scopes: [String!]!
   preferences: Preferences
@@ -159,6 +178,28 @@ input LibraryEntryInput {
 }
 type RemovalResult { mediaId: ID! removed: Boolean! }
 type Mutation {
+  setFollow(username: String!, enabled: Boolean!): Boolean
+  setBlock(username: String!, enabled: Boolean!): Boolean
+  setMute(username: String!, enabled: Boolean!): Boolean
+  createPost(input: SocialPostInput!): SocialPost
+  updatePost(id: ID!, body: String!): SocialPost
+  deletePost(id: ID!): Boolean
+  setPostLike(id: ID!, enabled: Boolean!): Boolean
+  setPostRepost(id: ID!, enabled: Boolean!): Boolean
+  setActivityLike(id: ID!, enabled: Boolean!): Boolean
+  deleteActivity(id: ID!): Boolean
+  saveReview(input: SocialReviewInput!): SocialReview
+  deleteReview(id: ID!): Boolean
+  setReviewLike(id: ID!, enabled: Boolean!): Boolean
+  setReviewReaction(id: ID!, reaction: CommunityReaction!, enabled: Boolean!): Boolean
+  createComment(input: SocialCommentInput!): SocialComment
+  deleteComment(id: ID!): Boolean
+  setCommentLike(id: ID!, enabled: Boolean!): Boolean
+  markNotificationRead(id: ID!): Boolean
+  markAllNotificationsRead: Int
+  saveNotificationPreferences(input: SocialNotificationPreferencesInput!): SocialNotificationPreferences
+  saveNotificationTypePreference(input: SocialNotificationTypeInput!): SocialNotificationTypePreference
+  reportContent(input: SocialReportInput!): ReportReceipt
   updateProfile(input: ProfileInput!): Profile
   savePreferences(input: PreferencesInput!): Preferences
   savePrivacy(input: PrivacyInput!): PrivacySettings
@@ -200,3 +241,40 @@ input CollectionCreateInput { mediaType: MediaType! name: String! description: S
 input CollectionUpdateInput { name: String! description: String color: String! = "#FF8A3D" visibility: CollectionVisibility! = PRIVATE tags: [String!]! = [] coverMediaId: ID position: Int! = 0 }
 type InsightBreakdown { key: String! label: String! count: Int! percentage: Float! }
 type LibraryInsights { mediaCount: Int! animeCount: Int! mangaCount: Int! completedCount: Int! episodesConsumed: Int! chaptersConsumed: Int! estimatedWatchMinutes: Int! averageScore: Float scoredCount: Int! repeatCount: Int! genres: [InsightBreakdown!]! formats: [InsightBreakdown!]! years: [InsightBreakdown!]! statuses: [InsightBreakdown!]! scores: [InsightBreakdown!]! countries: [InsightBreakdown!]! studios: [InsightBreakdown!]! }
+
+enum CommunityFeedScope { FOLLOWING GLOBAL }
+enum CommunityActivityType { MEDIA_LIST REVIEW FOLLOW PROFILE_POST REPOST }
+enum CommunityRecommendation { RECOMMENDED MIXED NOT_RECOMMENDED }
+enum CommunitySpoilerLevel { NONE MINOR MAJOR }
+enum CommunityReaction { HELPFUL INSIGHTFUL WELL_WRITTEN }
+enum PostVisibility { PUBLIC PRIVATE }
+enum CommunityReportTarget { USER REVIEW COMMENT PROFILE_POST }
+enum NotificationEmailMode { OFF IMMEDIATE DAILY }
+type SocialActor { id: ID! username: String! displayName: String! avatarUrl: String }
+type SocialActorPage { nodes: [SocialActor!]! pageInfo: PageInfo! }
+type SocialPost { id: ID! author: SocialActor! body: String! visibility: PostVisibility! recipientId: ID parentId: ID quotedPost: SocialPost images: [String!]! likeCount: Int! replyCount: Int! repostCount: Int! viewerLiked: Boolean! viewerReposted: Boolean! createdAt: Time! updatedAt: Time! replies(first: Int! = 20, offset: Int! = 0): SocialPostPage }
+type SocialPostPage { nodes: [SocialPost!]! pageInfo: PageInfo! }
+input SocialPostInput { body: String! visibility: PostVisibility! = PUBLIC recipientId: ID parentId: ID quotedPostId: ID images: [ID!]! = [] }
+type SocialReview { id: ID! author: SocialActor! media: Media title: String body: String! recommendation: CommunityRecommendation! spoilerLevel: CommunitySpoilerLevel! aspects: CommunityAspectScores! reactions: CommunityReactionSummary! likeCount: Int! commentCount: Int! viewerLiked: Boolean! createdAt: Time! updatedAt: Time! }
+type CommunityAspectScores { story: Int characters: Int visuals: Int sound: Int enjoyment: Int }
+input CommunityAspectInput { story: Int characters: Int visuals: Int sound: Int enjoyment: Int }
+type CommunityReactionSummary { helpful: Int! insightful: Int! wellWritten: Int! viewerHelpful: Boolean! viewerInsightful: Boolean! viewerWellWritten: Boolean! }
+type SocialReviewPage { nodes: [SocialReview!]! pageInfo: PageInfo! }
+"""Replaces the token owner's review for a media. Omitted optional title/aspect values are cleared."""
+input SocialReviewInput { mediaId: ID! title: String body: String! recommendation: CommunityRecommendation! spoilerLevel: CommunitySpoilerLevel! = NONE aspects: CommunityAspectInput }
+type SocialComment { id: ID! author: SocialActor! parentId: ID body: String! removed: Boolean! likeCount: Int! viewerLiked: Boolean! createdAt: Time! updatedAt: Time! }
+type SocialCommentPage { nodes: [SocialComment!]! pageInfo: PageInfo! }
+"""Exactly one discussion selector is required. parentId may identify a comment in that same discussion."""
+input SocialCommentInput { mediaId: ID reviewId: ID activityId: ID parentId: ID body: String! }
+type SocialActivity { id: ID! type: CommunityActivityType! actor: SocialActor! media: Media targetUser: SocialActor review: SocialReview post: SocialPost status: ListStatus progress: Int likeCount: Int! commentCount: Int! viewerLiked: Boolean! createdAt: Time! }
+type SocialActivityPage { nodes: [SocialActivity!]! pageInfo: PageInfo! }
+type SocialNotification { id: ID! type: String! actor: SocialActor media: Media reviewId: ID commentId: ID postId: ID forumTopicId: ID forumPostId: ID achievementKey: String preview: String priority: String! readAt: Time createdAt: Time! }
+type SocialNotificationPage { nodes: [SocialNotification!]! pageInfo: PageInfo! }
+type SocialNotificationPreferences { follows: Boolean! reviewLikes: Boolean! commentLikes: Boolean! replies: Boolean! reviewComments: Boolean! socialPosts: Boolean! emailMode: NotificationEmailMode! smartGrouping: Boolean! importantOnlyDefault: Boolean! quietHoursEnabled: Boolean! quietStartMinutes: Int! quietEndMinutes: Int! quietTimezone: String! showRealtimeIndicator: Boolean! }
+"""Replacement of notification settings; quiet hours use minutes from midnight in an IANA timezone."""
+input SocialNotificationPreferencesInput { follows: Boolean! reviewLikes: Boolean! commentLikes: Boolean! replies: Boolean! reviewComments: Boolean! socialPosts: Boolean! emailMode: NotificationEmailMode! smartGrouping: Boolean! importantOnlyDefault: Boolean! quietHoursEnabled: Boolean! quietStartMinutes: Int! quietEndMinutes: Int! quietTimezone: String! showRealtimeIndicator: Boolean! }
+type SocialNotificationTypePreference { type: String! inAppEnabled: Boolean! emailEnabled: Boolean! mutedUntil: Time }
+input SocialNotificationTypeInput { type: String! inAppEnabled: Boolean! emailEnabled: Boolean! mutedUntil: Time }
+input SocialReportInput { targetType: CommunityReportTarget! targetId: ID! reason: String! details: String }
+"""Receipt for the submitting account. Moderation data and other reporters are never exposed."""
+type ReportReceipt { id: ID! status: String! createdAt: Time! }

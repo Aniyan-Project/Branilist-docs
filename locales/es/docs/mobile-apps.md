@@ -100,4 +100,4 @@ mutation CreateCollection {
 
 Se aplican las [reglas de privacidad, paginación, coste y errores](graphql.md). Cada campo de mutation tiene su propia transacción. Para uso sin conexión, comprueba el estado tras fallos de red y evita reintentos indiscriminados; esta API no ofrece sincronización incremental ni resolución automática de conflictos.
 
-Feed social, foro, reviews, push y gestión sensible de cuenta quedan fuera de estas operaciones de catálogo y biblioteca. Aísla credenciales por cuenta y comprueba errores GraphQL incluso con HTTP 200.
+Feed, seguidores, publicaciones, reviews, comentarios y notificaciones se describen en la [guía de comunidad](community.md). Foro, push y gestión sensible de cuenta quedan fuera de estas operaciones. Aísla credenciales por cuenta y comprueba errores GraphQL incluso con HTTP 200.

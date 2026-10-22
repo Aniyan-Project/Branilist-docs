@@ -24,11 +24,11 @@ Usa `/api/v1/me/search`, `library:read` y `type=MANGA`. La búsqueda pública no
 
 ## ¿Cómo obtengo más de 500 entradas de biblioteca?
 
-La ruta actual no ofrece paginación ni una forma documentada de recorrer el resto. El historial tiene un límite de 200; la búsqueda también tiene límites. No presentes estos resultados como una exportación completa garantizada.
+La ruta REST no ofrece paginación ni una forma documentada de recorrer el resto. [GraphQL](graphql.md) ofrece paginación first/offset dentro de sus límites documentados. El historial tiene un límite de 200; la búsqueda también tiene límites. No presentes estos resultados como una exportación completa garantizada.
 
 ## ¿Puedo crear colecciones, reseñas o favoritos?
 
-Esas escrituras no forman parte del contrato `/api/v1` revisado. Los webhooks no implican que existan rutas públicas de escritura equivalentes.
+Sí, mediante GraphQL: [colecciones y favoritos](mobile-apps.md) y [reviews y comentarios](community.md), con OAuth y los scopes correspondientes. Esas escrituras no forman parte de REST `/api/v1`.
 
 ## ¿Puede un access token administrar el panel de desarrolladores?
 

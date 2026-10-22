@@ -4,6 +4,7 @@
 
 - [API GraphQL pública](graphql.md)
 - [Aplicaciones móviles](mobile-apps.md)
+- [Comunidad, reviews y notificaciones](community.md)
 
 1. [Inicio rápido](getting-started.md)
 2. [OAuth 2.0 con PKCE](authentication.md)

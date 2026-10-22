@@ -24,11 +24,11 @@ Use `/api/v1/me/search`, `library:read`, and `type=MANGA`. Public search has no 
 
 ## How do I fetch more than 500 library entries?
 
-The current endpoint has no pagination or documented way to traverse the remainder. History is limited to 200; search is limited too. Do not describe these results as a guaranteed complete export.
+The REST endpoint has no pagination or documented way to traverse the remainder. [GraphQL](graphql.md) offers first/offset pagination within its documented limits. History is limited to 200; search is limited too. Do not describe these results as a guaranteed complete export.
 
 ## Can I create collections, reviews, or favorites?
 
-Those writes are not in the reviewed `/api/v1` contract. Webhooks do not imply matching public write endpoints exist.
+Yes, through GraphQL: [collections and favourites](mobile-apps.md) and [reviews and comments](community.md), using OAuth and the corresponding scopes. Those writes are not part of REST `/api/v1`.
 
 ## Can an access token manage the developer dashboard?
 

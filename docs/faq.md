@@ -24,11 +24,11 @@ Use `/api/v1/me/search` com `library:read` e `type=MANGA`. A busca pública não
 
 ## Como baixo uma biblioteca com mais de 500 itens?
 
-A rota atual retorna até 500 itens e não expõe paginação. Não há parâmetro documentado que permita varrer o restante por essa API. Histórico tem limite de 200 registros; a busca também é limitada. Não apresente esses resultados como exportação integral garantida.
+Na REST, a rota atual retorna até 500 itens e não expõe paginação. A [GraphQL](graphql.md) oferece paginação por first/offset até os limites documentados. Não há parâmetro documentado que permita varrer o restante por essa API. Histórico tem limite de 200 registros; a busca também é limitada. Não apresente esses resultados como exportação integral garantida.
 
 ## Posso criar coleções, fazer reviews ou favoritar pela API pública?
 
-Não há essas operações no contrato `/api/v1` conferido. Webhooks de reviews e coleções não significam que existam rotas REST públicas de escrita desses recursos.
+Sim, pela GraphQL: [coleções e favoritos](mobile-apps.md) e [reviews e comentários](community.md), com OAuth e os escopos correspondentes. Essas escritas não estão no contrato REST `/api/v1`.
 
 ## Posso usar os endpoints de gestão do painel com o access token?
 

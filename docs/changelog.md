@@ -2,6 +2,12 @@
 
 [Índice](README.md)
 
+## 2026-10-22 — GraphQL: comunidade e notificações
+
+- Feed, conexões, publicações, reviews, comentários, reações e notificações pessoais.
+- Escopos OAuth específicos, bloqueios/silenciamentos, denúncias e proteção de mensagens privadas.
+- Guia de comunidade nos três idiomas e referência gerada do SDL atualizado.
+
 ## 2026-10-22 — Consultas de usuários públicos
 
 - Perfil, biblioteca, atividade publicada e coleções de outro usuário, por ID ou username, com OAuth e os escopos de leitura existentes.
