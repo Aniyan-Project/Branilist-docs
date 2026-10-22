@@ -4,11 +4,14 @@ import { locales, searchLocales } from './locales.mts'
 
 const navigation = JSON.parse(readFileSync(new URL('../.site/navigation.json', import.meta.url), 'utf8'))
 const base = '/Branilist-docs/'
+// Recognize SDL downloads as static assets in both the build and client router.
+process.env.VITE_EXTRA_EXTENSIONS = 'graphql'
 
 export default defineConfig({
   lang: 'pt-BR',
   title: 'Branilist API Docs',
-  description: 'Guias e referência da API pública REST do Branilist.',
+  description: 'Guias e referência das APIs públicas REST e GraphQL do Branilist.',
+  vite: { define: { 'import.meta.env.VITE_EXTRA_EXTENSIONS': JSON.stringify('graphql') } },
   srcDir: '.site',
   srcExclude: ['navigation.json'],
   base,

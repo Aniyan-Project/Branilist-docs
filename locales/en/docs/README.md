@@ -2,6 +2,8 @@
 
 ## Guides
 
+- [Public GraphQL API](graphql.md)
+
 1. [Quick start](getting-started.md)
 2. [OAuth 2.0 with PKCE](authentication.md)
 3. [API keys and scopes](api-keys.md)

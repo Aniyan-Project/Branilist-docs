@@ -24,7 +24,7 @@ export async function localizeSite(root,out,navigation) {
     const source=JSON.parse(text.match(/^source: (.+)$/m)?.[1] ?? '"openapi.json"')
     const route='/'+relative(out,file).replaceAll('\\','/').replace(/(?:index)?\.md$/,'')
     const normalized=route==='/'?'/':route
-    if(source!=='openapi.json' && normalized!=='/') routes.set(resolve(root,source),normalized)
+    if(source!=='openapi.json' && !source.endsWith('.graphql') && normalized!=='/') routes.set(resolve(root,source),normalized)
     entries.push({text,source,route:normalized})
   }
   const result={root:navigation}
@@ -40,7 +40,10 @@ export async function localizeSite(root,out,navigation) {
     const headings=new Map()
     for(const entry of entries) {
       let text, source=entry.source, fallback=false
-      if(source==='openapi.json') {
+      if(source==='graphql/schema.graphql') {
+        const path=entry.route.replace(/^\//,'')+(entry.route.endsWith('/')?'index.md':'.md')
+        text=await readFile(join(out,locale,path),'utf8')
+      } else if(source==='openapi.json') {
         text=entry.text.split(/(^```[^\n]*\n[\s\S]*?^```\s*$)/gm).map((part,i)=>i%2?part:translate(part)).join('')
       } else {
         const file=join(root,'locales',locale,source)

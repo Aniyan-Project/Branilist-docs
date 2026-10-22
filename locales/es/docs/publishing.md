@@ -6,7 +6,7 @@ El sitio VitePress está alojado en [GitHub Pages](https://aniyan-project.github
 
 ## Flujo de actualización
 
-1. Edita `docs/`, `site/introduction.md` u `openapi.json`.
+1. Edita `docs/`, `site/introduction.md`, el `openapi.json` REST o el SDL público `graphql/schema.graphql`.
 2. Envía el cambio a la rama `main` del repositorio de documentación.
 3. El workflow **Publicar documentação** valida contenido y ejemplos, construye el sitio y lo publica.
 

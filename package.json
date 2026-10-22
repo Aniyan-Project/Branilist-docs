@@ -8,13 +8,14 @@
     "node": ">=22"
   },
   "scripts": {
-    "check": "node scripts/validate-docs.mjs && node --test examples/examples.test.mjs scripts/site.test.mjs",
+    "check": "node scripts/validate-docs.mjs && node --test examples/examples.test.mjs examples/graphql.test.mjs scripts/site.test.mjs",
     "docs:prepare": "node scripts/generate-site.mjs",
     "docs:dev": "npm run docs:prepare && vitepress dev . --host 127.0.0.1",
     "docs:build": "npm run docs:prepare && vitepress build .",
     "docs:preview": "vitepress preview . --host 127.0.0.1"
   },
   "devDependencies": {
+    "graphql": "17.0.2",
     "vitepress": "1.6.4"
   },
   "overrides": {

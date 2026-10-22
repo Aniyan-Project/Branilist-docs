@@ -6,7 +6,7 @@ O site é publicado no **GitHub Pages** em [aniyan-project.github.io/Branilist-d
 
 ## Fluxo de atualização
 
-1. Edite os guias em `docs/`, a introdução em `site/introduction.md` ou as operações em `openapi.json`.
+1. Edite os guias em `docs/`, a introdução em `site/introduction.md`, as operações REST em `openapi.json` ou o SDL público em `graphql/schema.graphql`.
 2. Envie a alteração para a branch `main` do repositório de documentação.
 3. O workflow **Publicar documentação** valida o conteúdo e os exemplos, gera o site e publica no Pages.
 

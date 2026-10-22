@@ -3,6 +3,7 @@ import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
 import assert from 'node:assert/strict'
+import { buildSchema, validateSchema, parse, validate } from 'graphql'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 async function files(dir) {
@@ -16,6 +17,8 @@ async function files(dir) {
 }
 let links = 0
 const all = await files(root)
+const graphqlSchema=buildSchema(await readFile(join(root,'graphql','schema.graphql'),'utf8'))
+assert.equal(validateSchema(graphqlSchema).length,0,'Invalid public GraphQL schema')
 for (const path of all.filter(path => path.endsWith('.md'))) {
   const text = await readFile(path, 'utf8')
   assert.equal((text.match(/^```/gm) ?? []).length % 2, 0, `Unbalanced code fences: ${path}`)
@@ -28,6 +31,9 @@ for (const path of all.filter(path => path.endsWith('.md'))) {
     links++
   }
   for (const match of text.matchAll(/^```json\s*\n([\s\S]*?)^```/gm)) JSON.parse(match[1])
+  for (const match of text.matchAll(/^```graphql\s*\n([\s\S]*?)^```/gm)) {
+    assert.equal(validate(graphqlSchema,parse(match[1])).length,0,`Invalid GraphQL example: ${path}`)
+  }
 }
 const spec = JSON.parse(await readFile(join(root, 'openapi.json'), 'utf8'))
 assert.equal(spec.openapi, '3.1.0')

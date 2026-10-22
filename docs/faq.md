@@ -4,7 +4,7 @@
 
 ## A API é GraphQL, como a do AniList?
 
-Esta documentação cobre a API **REST JSON** pública v1 do Branilist. A semelhança com a documentação do AniList é de organização. Não envie consultas GraphQL para `/api/v1` nem presuma que um Bearer OAuth autentica a sessão GraphQL do site.
+O Branilist oferece REST em `/api/v1` e uma [API GraphQL pública separada](graphql.md) em `/api/graphql`, com OAuth e API keys. O `/graphql` do site tem outro contrato e usa autenticação de sessão. Não envie queries GraphQL às rotas REST.
 
 ## Preciso de API key para consultar o catálogo?
 

@@ -1,8 +1,8 @@
 # Branilist Public API
 
-Documentação da API pública REST do [Branilist](https://branilist.com). Consulte anime e mangá, conecte uma conta com OAuth e gerencie a biblioteca do usuário com consentimento.
+Documentação das APIs públicas REST e GraphQL do [Branilist](https://branilist.com). Consulte anime e mangá, conecte uma conta com OAuth e gerencie a biblioteca do usuário com consentimento.
 
-**API v1 · REST/JSON · OAuth 2.0 + PKCE · Português / English / Español**
+**REST/JSON · GraphQL · OAuth 2.0 + PKCE · Português / English / Español**
 
 **[Ler a documentação no site →](https://aniyan-project.github.io/Branilist-docs/guide/introduction.html)**
 
@@ -17,6 +17,7 @@ curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'
 | Quero… | Leia |
 | --- | --- |
 | Fazer minha primeira consulta | [Início rápido](docs/getting-started.md) |
+| Usar GraphQL, relacionamentos e mutations | [Guia GraphQL](docs/graphql.md) · [Schema SDL](graphql/schema.graphql) |
 | Conectar uma conta | [OAuth e PKCE](docs/authentication.md) |
 | Usar uma API key no servidor | [API keys](docs/api-keys.md) |
 | Encontrar mídia por ID Branilist, MyAnimeList ou AniList | [Catálogo e busca](docs/reference/catalog.md) |

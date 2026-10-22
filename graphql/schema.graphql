@@ -1,0 +1,155 @@
+"""Public integration API. This schema is independent of the site's GraphQL schema."""
+schema { query: Query mutation: Mutation }
+scalar Time
+
+enum MediaType { ANIME MANGA }
+enum ListStatus { PLANNING CURRENT COMPLETED PAUSED DROPPED }
+"""All pages are bounded: first 1–100, offset 0–10000."""
+type PageInfo { limit: Int! offset: Int! hasNextPage: Boolean! }
+type APIInfo { name: String! version: String! schemaUrl: String! }
+type MediaTitle { romaji: String! english: String native: String portuguese: String }
+
+type Query {
+  api: APIInfo!
+  """Supply exactly one of id, malId or anilistId. Only existing catalog mappings are used."""
+  media(id: ID, malId: ID, anilistId: ID): Media
+  """Public catalog ordered by descending internal ID. Search matches titles; no search returns the catalog."""
+  mediaPage(search: String, type: MediaType, first: Int! = 20, offset: Int! = 0): MediaPage!
+  genres(first: Int! = 20, offset: Int! = 0): GenrePage!
+  staff(id: ID!): Staff
+  character(id: ID!): Character
+  studio(id: ID!): Studio
+  """OAuth profile:read. Supply exactly one argument; username:"123456" is unambiguous."""
+  user(id: ID, username: String): User
+  """OAuth required. Individual fields enforce their own read scopes."""
+  viewer: Viewer
+}
+
+type Media {
+  id: ID!
+  slug: String!
+  type: MediaType!
+  status: String!
+  format: String!
+  title: MediaTitle!
+  description: String
+  descriptionEnglish: String
+  coverImage: String
+  bannerImage: String
+  episodes: Int
+  chapters: Int
+  seasonYear: Int
+  averageScore: Int
+  popularity: Int!
+  isAdult: Boolean!
+  malId: ID
+  anilistId: ID
+  genres(first: Int! = 20, offset: Int! = 0): GenrePage!
+  relations(first: Int! = 20, offset: Int! = 0): MediaRelationPage!
+  studios(first: Int! = 20, offset: Int! = 0): StudioCreditPage!
+  staff(first: Int! = 20, offset: Int! = 0): StaffCreditPage!
+  characters(first: Int! = 20, offset: Int! = 0): CharacterCreditPage!
+  """OAuth library:read; only the token owner's entry."""
+  viewerEntry: LibraryEntry
+}
+type MediaPage { nodes: [Media!]! pageInfo: PageInfo! }
+type Genre { id: ID! slug: String! name: String! }
+type GenrePage { nodes: [Genre!]! pageInfo: PageInfo! }
+type Studio { id: ID! slug: String! name: String! websiteUrl: String countryCode: String description: String logoUrl: String }
+type Staff { id: ID! slug: String! name: String! nativeName: String imageUrl: String bio: String }
+type Character { id: ID! slug: String! name: String! nativeName: String imageUrl: String description: String }
+type StudioCredit { role: String! isMain: Boolean! studio: Studio! }
+type StaffCredit { role: String! roleGroup: String! staff: Staff! }
+type CharacterCredit { role: String! character: Character! }
+type MediaRelation { type: String! mediaId: ID! media: Media }
+type StudioCreditPage { nodes: [StudioCredit!]! pageInfo: PageInfo! }
+type StaffCreditPage { nodes: [StaffCredit!]! pageInfo: PageInfo! }
+type CharacterCreditPage { nodes: [CharacterCredit!]! pageInfo: PageInfo! }
+type MediaRelationPage { nodes: [MediaRelation!]! pageInfo: PageInfo! }
+
+"""Public profile only. Private/followers-only accounts and blocks are never bypassed."""
+type User {
+  id: ID!
+  username: String!
+  displayName: String!
+  avatarUrl: String
+  bannerUrl: String
+  bio: String
+  createdAt: Time!
+  """OAuth library:read, PUBLIC lists, excludes private entries."""
+  library(status: ListStatus, type: MediaType, first: Int! = 20, offset: Int! = 0): LibraryPage
+  """OAuth activity:read, PUBLIC lists/activity. Published MEDIA_LIST feed events only."""
+  activity(first: Int! = 20, offset: Int! = 0): PublicActivityPage
+  """OAuth collections:read, PUBLIC lists and PUBLIC collections only."""
+  collections(first: Int! = 20, offset: Int! = 0): CollectionPage
+}
+type Profile { id: ID! username: String! displayName: String! avatarUrl: String bannerUrl: String bio: String createdAt: Time! }
+type Viewer {
+  id: ID!
+  scopes: [String!]!
+  """OAuth profile:read; includes the owner's profile even when private."""
+  profile: Profile
+  """OAuth library:read; includes the owner's private entries."""
+  library(status: ListStatus, type: MediaType, first: Int! = 20, offset: Int! = 0): LibraryPage
+  libraryEntry(mediaId: ID!): LibraryEntry
+  """OAuth activity:read; personal audit history, distinct from User.activity."""
+  activity(first: Int! = 20, offset: Int! = 0): HistoryPage
+  """OAuth collections:read; includes private and unlisted collections."""
+  collections(first: Int! = 20, offset: Int! = 0): CollectionPage
+}
+type LibraryEntry {
+  mediaId: ID!
+  status: ListStatus!
+  progress: Int!
+  """Personal rating 0.5–10 in half-point steps; not the catalog's 0–100 scale."""
+  score: Float
+  repeatCount: Int!
+  startedAt: Time
+  completedAt: Time
+  private: Boolean!
+  updatedAt: Time!
+  media: Media
+}
+type LibraryPage { nodes: [LibraryEntry!]! pageInfo: PageInfo! }
+type PublicActivity { id: ID! type: String! mediaId: ID! status: ListStatus progress: Int createdAt: Time! }
+type PublicActivityPage { nodes: [PublicActivity!]! pageInfo: PageInfo! }
+type HistoryItem { id: ID! mediaId: ID! eventType: String! status: ListStatus previousStatus: ListStatus progress: Int previousProgress: Int progressDelta: Int score: Float repeatCount: Int! createdAt: Time! }
+type HistoryPage { nodes: [HistoryItem!]! pageInfo: PageInfo! }
+type Collection {
+  id: ID!
+  mediaType: MediaType!
+  name: String!
+  slug: String!
+  description: String
+  color: String!
+  visibility: String!
+  tags: [String!]!
+  coverMediaId: ID
+  position: Int!
+  publishedAt: Time
+  createdAt: Time!
+  updatedAt: Time!
+  itemCount: Int!
+  items(first: Int! = 20, offset: Int! = 0): MediaPage
+}
+type CollectionPage { nodes: [Collection!]! pageInfo: PageInfo! }
+
+"""Omitted fields preserve existing values. New entries default to PLANNING/0/null/false.
+Only score, startedAt and completedAt accept explicit null to clear their values.
+Dates accept YYYY-MM-DD or RFC3339; CURRENT/COMPLETED can autofill absent dates."""
+input LibraryEntryInput {
+  status: ListStatus
+  progress: Int
+  score: Float
+  repeatCount: Int
+  startedAt: String
+  completedAt: String
+  private: Boolean
+}
+type RemovalResult { mediaId: ID! removed: Boolean! }
+type Mutation {
+  """OAuth library:write. Atomic create/update of the token owner's entry only."""
+  saveLibraryEntry(mediaId: ID!, input: LibraryEntryInput!): LibraryEntry
+  """OAuth library:write. Idempotent removal; history is committed with deletion."""
+  removeLibraryEntry(mediaId: ID!): RemovalResult
+}

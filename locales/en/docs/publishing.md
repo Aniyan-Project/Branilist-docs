@@ -6,7 +6,7 @@ The VitePress site is hosted on [GitHub Pages](https://aniyan-project.github.io/
 
 ## Update flow
 
-1. Edit `docs/`, `site/introduction.md`, or `openapi.json`.
+1. Edit `docs/`, `site/introduction.md`, REST `openapi.json`, or public `graphql/schema.graphql`.
 2. Push the change to the documentation repository's `main` branch.
 3. The **Publicar documentação** workflow validates content/examples, builds the site, and publishes it.
 

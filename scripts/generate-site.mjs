@@ -2,6 +2,7 @@ import { readFile, writeFile, readdir, mkdir, rm, copyFile } from 'node:fs/promi
 import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { localizeSite } from './localize-site.mjs'
+import { generateGraphQL } from './generate-graphql.mjs'
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const methods = ['get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace']
@@ -200,6 +201,8 @@ export async function generateSite(root = projectRoot) {
     guide: [{ text: 'Guia da API', items: guideItems }],
     reference: [{ text: 'Visão geral', items: [{ text: 'Todas as operações', link: '/reference/' }, ...manualReference] }, ...[...apiGroups].map(([text, items]) => ({ text, collapsed: false, items })), { text: 'Modelos JSON', collapsed: true, items: schemaItems }]
   }
+  const graphqlNavigation = await generateGraphQL(root,out)
+  if (graphqlNavigation) navigation.reference.push(graphqlNavigation)
   const locales = await localizeSite(root,out,navigation)
   for (const source of attachments) {
     const target = source === 'openapi.json' ? join(out,'public','openapi.json') : join(out,'public','downloads',source)
