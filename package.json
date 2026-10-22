@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Documentação da API pública REST do Branilist",
+  "description": "Documentação das APIs públicas REST e GraphQL do Branilist: catálogo, biblioteca, comunidade, fórum e integrações.",
   "engines": {
     "node": ">=22"
   },

@@ -1,11 +1,11 @@
 # Índice de la documentación
 
-[Foro y Spaces](forum.md)
 ## Guías
 
 - [API GraphQL pública](graphql.md)
 - [Aplicaciones móviles](mobile-apps.md)
 - [Comunidad, reviews y notificaciones](community.md)
+- [Foro y Spaces](forum.md)
 
 1. [Inicio rápido](getting-started.md)
 2. [OAuth 2.0 con PKCE](authentication.md)

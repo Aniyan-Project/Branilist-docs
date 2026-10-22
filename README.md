@@ -1,6 +1,6 @@
 # Branilist Public API
 
-Documentação das APIs públicas REST e GraphQL do [Branilist](https://branilist.com). Consulte anime e mangá, conecte uma conta com OAuth e gerencie a biblioteca do usuário com consentimento.
+Documentação das APIs públicas **REST e GraphQL** do [Branilist](https://branilist.com), com guias, referências e exemplos para criar integrações e aplicativos. Consulte o catálogo de anime e mangá e, com o consentimento do usuário via OAuth, gerencie biblioteca, favoritos, coleções, perfil e interações da comunidade.
 
 **REST/JSON · GraphQL · OAuth 2.0 + PKCE · Português / English / Español**
 
@@ -11,6 +11,25 @@ Documentação das APIs públicas REST e GraphQL do [Branilist](https://branilis
 ```sh
 curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'
 ```
+
+Consulte o catálogo com GraphQL e escolha os campos da resposta:
+
+```sh
+curl --fail-with-body 'https://branilist.com/api/graphql' \
+  -H 'Content-Type: application/json' \
+  --data '{"query":"query { mediaPage(search: \"Frieren\", first: 5) { nodes { id title { romaji english portuguese } } pageInfo { hasNextPage } } }"}'
+```
+
+## Recursos das APIs
+
+- **Catálogo:** busca, detalhes de anime e mangá, IDs MyAnimeList/AniList e relacionamentos; GraphQL também oferece filtros, recomendações, personagens, profissionais e estúdios.
+- **Conta e biblioteca:** dados públicos de usuários, biblioteca pessoal, favoritos, coleções, perfil, preferências e privacidade, conforme os escopos de cada operação.
+- **Comunidade via GraphQL:** feed, seguidores, publicações e respostas, reviews, comentários, curtidas e republicações.
+- **Fórum via GraphQL:** categorias, tags, busca de tópicos, mensagens, reações, inscrições e participação em Spaces.
+- **Notificações e proteção via GraphQL:** leitura e preferências pessoais, bloqueios, silenciamentos e denúncias, respeitando propriedade e visibilidade.
+- **Integrações:** OAuth 2.0 com PKCE, API keys para operações compatíveis, webhooks assinados e referências geradas de OpenAPI e SDL GraphQL.
+
+REST e GraphQL possuem contratos próprios. Consulte o guia de cada recurso para credenciais, escopos, limites e exemplos. As operações da conta usam a identidade do dono do token; o contrato público não oferece funções administrativas.
 
 ## Comece por aqui
 
@@ -38,6 +57,9 @@ curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'
 | --- | --- |
 | Origem usada nos exemplos | `https://branilist.com` |
 | API REST | `https://branilist.com/api/v1` |
+| API GraphQL pública | `https://branilist.com/api/graphql` |
+| Explorador GraphQL | [branilist.com/api/graphql/playground](https://branilist.com/api/graphql/playground) |
+| Schema GraphQL | [SDL no repositório](graphql/schema.graphql) · [SDL do servidor](https://branilist.com/api/graphql/schema.graphql) |
 | Autorização no navegador | `https://branilist.com/oauth/authorize` |
 | Emissão e renovação de tokens | `https://branilist.com/oauth/token` |
 | Revogação de token | `https://branilist.com/oauth/revoke` |
@@ -46,9 +68,9 @@ curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'
 
 ## O que está documentado
 
-As operações REST em `/api/v1`, os endpoints de tokens e o fluxo de consentimento no navegador. As APIs de sessão do site, administração, GraphQL e extensão têm contratos próprios e não são intercambiáveis com esta API. A lista de operações do site é gerada a partir do OpenAPI a cada publicação.
+As operações REST em `/api/v1`, o GraphQL público em `/api/graphql`, os endpoints de tokens e o fluxo de consentimento no navegador. A documentação inclui consultas e alterações autorizadas da conta, comunidade, fórum e integrações. APIs de sessão do site, GraphQL interno em `/graphql`, administração e extensão têm contratos separados.
 
-Esta documentação foi conferida com a implementação em **21 de outubro de 2026**. Exemplos com mídias, perfis e IDs são ilustrativos; o catálogo e a implantação podem mudar. Consulte o [histórico](docs/changelog.md) e as [limitações atuais](docs/faq.md).
+Consulte o [histórico](docs/changelog.md), os [escopos OAuth](docs/authentication.md) e as [limitações atuais](docs/faq.md). Exemplos com mídias, perfis e IDs são ilustrativos; o catálogo e a implantação podem mudar.
 
 ## Navegação e contribuição
 
@@ -56,4 +78,4 @@ Esta documentação foi conferida com a implementação em **21 de outubro de 20
 - [Como contribuir e validar a documentação](CONTRIBUTING.md)
 - [Relatar um problema na documentação](https://github.com/Aniyan-Project/Branilist-docs/issues)
 
-O conteúdo é mantido em Markdown para leitura e revisão diretamente no GitHub. O site usa VitePress e é publicado automaticamente no GitHub Pages. Operações e modelos são gerados de `openapi.json`; páginas Markdown entram automaticamente na navegação. Veja [como publicar e adicionar rotas](docs/publishing.md).
+O conteúdo é mantido em Markdown para leitura e revisão diretamente no GitHub. O site usa VitePress e é publicado automaticamente no GitHub Pages. A referência REST é gerada de [`openapi.json`](openapi.json), e a referência GraphQL de [`graphql/schema.graphql`](graphql/schema.graphql). Páginas Markdown entram automaticamente na navegação nos três idiomas. Veja [como publicar e adicionar rotas](docs/publishing.md).
