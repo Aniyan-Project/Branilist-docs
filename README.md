@@ -18,6 +18,7 @@ curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'
 | --- | --- |
 | Fazer minha primeira consulta | [Início rápido](docs/getting-started.md) |
 | Usar GraphQL, relacionamentos e mutations | [Guia GraphQL](docs/graphql.md) · [Schema SDL](graphql/schema.graphql) |
+| Criar um aplicativo mobile | [Catálogo, biblioteca e coleções](docs/mobile-apps.md) |
 | Conectar uma conta | [OAuth e PKCE](docs/authentication.md) |
 | Usar uma API key no servidor | [API keys](docs/api-keys.md) |
 | Encontrar mídia por ID Branilist, MyAnimeList ou AniList | [Catálogo e busca](docs/reference/catalog.md) |
@@ -54,4 +55,3 @@ Esta documentação foi conferida com a implementação em **21 de outubro de 20
 - [Relatar um problema na documentação](https://github.com/Aniyan-Project/Branilist-docs/issues)
 
 O conteúdo é mantido em Markdown para leitura e revisão diretamente no GitHub. O site usa VitePress e é publicado automaticamente no GitHub Pages. Operações e modelos são gerados de `openapi.json`; páginas Markdown entram automaticamente na navegação. Veja [como publicar e adicionar rotas](docs/publishing.md).
-

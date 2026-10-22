@@ -3,6 +3,7 @@
 ## Guides
 
 - [Public GraphQL API](graphql.md)
+- [Mobile applications](mobile-apps.md)
 
 1. [Quick start](getting-started.md)
 2. [OAuth 2.0 with PKCE](authentication.md)

@@ -1,6 +1,6 @@
 # Public GraphQL API
 
-[Index](README.md) · [OAuth and PKCE](authentication.md) · [SDL schema](../../../graphql/schema.graphql)
+[Index](README.md) · [Mobile applications](mobile-apps.md) · [OAuth and PKCE](authentication.md) · [SDL schema](../../../graphql/schema.graphql)
 
 Use **`POST https://branilist.com/api/graphql`** with the dedicated integration schema. REST remains available at `/api/v1`. The site's `/graphql` endpoint has a different contract and authentication.
 
@@ -28,6 +28,11 @@ Select the fields you need. `mediaPage` accepts optional search text, `type: ANI
 | Published activity and personal history | OAuth `activity:read` |
 | Collections and their contents | OAuth `collections:read` |
 | Save or remove library entries | OAuth `library:write` |
+| Edit profile | OAuth `profile:write` |
+| Read/save preferences | OAuth `preferences:read / preferences:write` |
+| Read/save privacy settings | OAuth `privacy:read / privacy:write` |
+| Read/change favourites | OAuth `favourites:read / favourites:write` |
+| Create, update and delete collections | OAuth `collections:write` |
 
 Send `Authorization: Bearer ACCESS_TOKEN` or `X-Branilist-API-Key: API_KEY`, never both. API keys are for servers and cannot authorize personal data or mutations. Site cookies do not authenticate this API. Use the existing [OAuth PKCE flow](authentication.md), including refresh and revocation. Removing an app scope removes access to its corresponding fields.
 

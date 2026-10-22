@@ -1,6 +1,6 @@
 # API GraphQL pública
 
-[Índice](README.md) · [OAuth e PKCE](authentication.md) · [Schema SDL](../graphql/schema.graphql)
+[Índice](README.md) · [Aplicativos mobile](mobile-apps.md) · [OAuth e PKCE](authentication.md) · [Schema SDL](../graphql/schema.graphql)
 
 A API GraphQL usa **`POST https://branilist.com/api/graphql`** e um schema próprio para integrações. A REST continua disponível em `/api/v1`. O GraphQL do site em `/graphql` tem outro contrato e autenticação.
 
@@ -28,6 +28,11 @@ Escolha os campos necessários. `mediaPage` aceita texto opcional, `type: ANIME`
 | Atividade e histórico | OAuth `activity:read` |
 | Coleções e seus itens | OAuth `collections:read` |
 | Salvar ou remover entrada da biblioteca | OAuth `library:write` |
+| Editar perfil | OAuth `profile:write` |
+| Ler/salvar preferências | OAuth `preferences:read / preferences:write` |
+| Ler/salvar privacidade | OAuth `privacy:read / privacy:write` |
+| Ler/alterar favoritos | OAuth `favourites:read / favourites:write` |
+| Criar, editar e excluir coleções | OAuth `collections:write` |
 
 Envie `Authorization: Bearer ACCESS_TOKEN` ou `X-Branilist-API-Key: API_KEY`. Não envie ambos. API keys são para servidores e não autorizam dados pessoais nem mutations. Cookies do site não autenticam a API pública. Use o [mesmo fluxo OAuth com PKCE](authentication.md), incluindo renovação e revogação. Escopos retirados da aplicação deixam de autorizar os campos correspondentes.
 

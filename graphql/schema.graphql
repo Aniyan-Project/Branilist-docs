@@ -14,7 +14,11 @@ type Query {
   """Supply exactly one of id, malId or anilistId. Only existing catalog mappings are used."""
   media(id: ID, malId: ID, anilistId: ID): Media
   """Public catalog ordered by descending internal ID. Search matches titles; no search returns the catalog."""
-  mediaPage(search: String, type: MediaType, first: Int! = 20, offset: Int! = 0): MediaPage!
+  mediaPage(search: String, type: MediaType, first: Int! = 20, offset: Int! = 0, filter: CatalogFilter, sort: CatalogSort! = ID_DESC): MediaPage!
+  mediaBySlug(slug: String!, type: MediaType!): Media
+  trendingMedia(type: MediaType, days: Int! = 30, first: Int! = 12): [Media!]!
+  collection(id: ID!): Collection
+  publicCollections(search: String, type: MediaType, first: Int! = 20, offset: Int! = 0): CollectionPage!
   genres(first: Int! = 20, offset: Int! = 0): GenrePage!
   staff(id: ID!): Staff
   character(id: ID!): Character
@@ -49,6 +53,7 @@ type Media {
   studios(first: Int! = 20, offset: Int! = 0): StudioCreditPage!
   staff(first: Int! = 20, offset: Int! = 0): StaffCreditPage!
   characters(first: Int! = 20, offset: Int! = 0): CharacterCreditPage!
+  similar(first: Int! = 12): [Media!]!
   """OAuth library:read; only the token owner's entry."""
   viewerEntry: LibraryEntry
 }
@@ -87,6 +92,12 @@ type Profile { id: ID! username: String! displayName: String! avatarUrl: String 
 type Viewer {
   id: ID!
   scopes: [String!]!
+  preferences: Preferences
+  privacy: PrivacySettings
+  libraryInsights: LibraryInsights
+  favourites(type: FavouriteType!, first: Int! = 20, offset: Int! = 0): FavouritePage
+  recommendations(first: Int! = 12): [Media!]
+  libraryPage(search: String, status: ListStatus, type: MediaType, sort: LibrarySort! = UPDATED, first: Int! = 20, offset: Int! = 0): LibraryPage
   """OAuth profile:read; includes the owner's profile even when private."""
   profile: Profile
   """OAuth library:read; includes the owner's private entries."""
@@ -148,8 +159,44 @@ input LibraryEntryInput {
 }
 type RemovalResult { mediaId: ID! removed: Boolean! }
 type Mutation {
+  updateProfile(input: ProfileInput!): Profile
+  savePreferences(input: PreferencesInput!): Preferences
+  savePrivacy(input: PrivacyInput!): PrivacySettings
+  setFavourite(type: FavouriteType!, id: ID!, enabled: Boolean!): FavouriteState
+  reorderFavourites(type: FavouriteType!, ids: [ID!]!): Boolean
+  createCollection(input: CollectionCreateInput!): Collection
+  updateCollection(id: ID!, input: CollectionUpdateInput!): Collection
+  deleteCollection(id: ID!): Boolean
+  setCollectionItem(collectionId: ID!, mediaId: ID!, enabled: Boolean! = true, position: Int! = 0, note: String): Boolean
   """OAuth library:write. Atomic create/update of the token owner's entry only."""
   saveLibraryEntry(mediaId: ID!, input: LibraryEntryInput!): LibraryEntry
   """OAuth library:write. Idempotent removal; history is committed with deletion."""
   removeLibraryEntry(mediaId: ID!): RemovalResult
 }
+
+"""All supplied catalog filters are combined. Genre uses its slug. Adult visibility follows the current principal."""
+input CatalogFilter { genre: String yearFrom: Int yearTo: Int season: Season format: String status: CatalogStatus }
+enum CatalogSort { ID_DESC POPULARITY_DESC SCORE_DESC TITLE_ASC YEAR_DESC }
+enum CatalogStatus { UPCOMING RELEASING FINISHED CANCELLED HIATUS }
+enum Season { WINTER SPRING SUMMER FALL }
+enum LibrarySort { UPDATED TITLE SCORE PROGRESS STARTED COMPLETED }
+enum FavouriteType { MEDIA STAFF STUDIO CHARACTER }
+enum CollectionVisibility { PRIVATE UNLISTED PUBLIC }
+enum Visibility { PUBLIC FOLLOWERS PRIVATE }
+enum TitleLanguage { AUTO ROMAJI ENGLISH NATIVE PORTUGUESE }
+enum Theme { SITE_DEFAULT DARK LIGHT }
+enum DarkTheme { BRANILIST MIDNIGHT AMOLED SLATE }
+type FavouriteState { type: FavouriteType! id: ID! enabled: Boolean! }
+type Favourite { type: FavouriteType! id: ID! position: Int! media: Media staff: Staff studio: Studio character: Character }
+type FavouritePage { nodes: [Favourite!]! pageInfo: PageInfo! }
+type Preferences { localeCode: String! titleLanguage: TitleLanguage! theme: Theme! darkTheme: DarkTheme! hideAdultContent: Boolean! }
+type PrivacySettings { profileVisibility: Visibility! listVisibility: Visibility! activityVisibility: Visibility! }
+"""Replacement of editable profile fields. Omitted bio/avatar/banner clear them. Image URLs must belong to the token owner."""
+input ProfileInput { displayName: String! bio: String avatarUrl: String bannerUrl: String bannerPositionX: Int bannerPositionY: Int }
+input PreferencesInput { localeCode: String! titleLanguage: TitleLanguage! theme: Theme! darkTheme: DarkTheme hideAdultContent: Boolean! }
+input PrivacyInput { profileVisibility: Visibility! listVisibility: Visibility! activityVisibility: Visibility! }
+input CollectionCreateInput { mediaType: MediaType! name: String! description: String color: String! = "#FF8A3D" visibility: CollectionVisibility! = PRIVATE tags: [String!]! = [] coverMediaId: ID }
+"""Replacement of collection metadata. Items remain unchanged."""
+input CollectionUpdateInput { name: String! description: String color: String! = "#FF8A3D" visibility: CollectionVisibility! = PRIVATE tags: [String!]! = [] coverMediaId: ID position: Int! = 0 }
+type InsightBreakdown { key: String! label: String! count: Int! percentage: Float! }
+type LibraryInsights { mediaCount: Int! animeCount: Int! mangaCount: Int! completedCount: Int! episodesConsumed: Int! chaptersConsumed: Int! estimatedWatchMinutes: Int! averageScore: Float scoredCount: Int! repeatCount: Int! genres: [InsightBreakdown!]! formats: [InsightBreakdown!]! years: [InsightBreakdown!]! statuses: [InsightBreakdown!]! scores: [InsightBreakdown!]! countries: [InsightBreakdown!]! studios: [InsightBreakdown!]! }
