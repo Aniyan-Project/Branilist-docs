@@ -100,4 +100,4 @@ mutation CreateCollection {
 
 Existing [privacy, pagination, cost and error rules](graphql.md) apply. Multiple mutation fields have separate transactions. For offline use, verify state after network failures and avoid indiscriminate retries; this API does not provide incremental synchronization or automatic conflict resolution.
 
-Feed, followers, posts, reviews, comments and notifications are covered by the [community guide](community.md). Forums, push and sensitive account management are outside these operations. Isolate credentials by account and inspect GraphQL errors even on HTTP 200.
+[Forum and Spaces](forum.md) have their own operations. Push delivery and sensitive account management are outside this contract. Keep credentials isolated per account and inspect errors even with HTTP 200.

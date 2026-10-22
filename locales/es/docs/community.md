@@ -1,5 +1,6 @@
 # Comunidad, reviews y notificaciones
 
+[Foro y Spaces](forum.md)
 [Índice](README.md) · [GraphQL](graphql.md) · [Aplicaciones móviles](mobile-apps.md) · [OAuth y PKCE](authentication.md)
 
 Las operaciones sociales usan `POST https://branilist.com/api/graphql` con OAuth Bearer. Las API keys y cookies del sitio no las autorizan. Todas las escrituras actúan como el dueño del token; no existe un argumento para suplantar otra cuenta.
@@ -148,7 +149,7 @@ mutation Report($postId: ID!) {
 }
 ```
 
-reportContent exige `reports:write` y admite USER, REVIEW, COMMENT o PROFILE_POST. El recurso debe ser accesible y no puede ser contenido propio. Motivo: 3–120 caracteres; detalles opcionales: hasta 2000. Las categorías conocidas, como SPAM, se normalizan. Se rechazan denuncias abiertas duplicadas. El resultado solo confirma la creación, sin vistas previas administrativas, datos de otros denunciantes ni notas de moderación.
+reportContent exige `reports:write` y admite USER, REVIEW, COMMENT, PROFILE_POST, FORUM_TOPIC o FORUM_POST. El recurso debe ser accesible y no puede ser contenido propio. Motivo: 3–120 caracteres; detalles opcionales: hasta 2000. Las categorías conocidas, como SPAM, se normalizan. Se rechazan denuncias abiertas duplicadas. El resultado solo confirma la creación, sin vistas previas administrativas, datos de otros denunciantes ni notas de moderación.
 
 ## Límites y recuperación
 

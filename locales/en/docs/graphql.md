@@ -1,5 +1,6 @@
 # Public GraphQL API
 
+[Forum and Spaces](forum.md)
 [Index](README.md) · [Mobile applications](mobile-apps.md) · [Community, reviews and notifications](community.md) · [OAuth and PKCE](authentication.md) · [SDL schema](../../../graphql/schema.graphql)
 
 Use **`POST https://branilist.com/api/graphql`** with the dedicated integration schema. REST remains available at `/api/v1`. The site's `/graphql` endpoint has a different contract and authentication.
@@ -20,6 +21,7 @@ Select the fields you need. `mediaPage` accepts optional search text, `type: ANI
 
 | Operation | Credential |
 | --- | --- |
+| Forum and Spaces | OAuth `forum:read / forum:write` |
 | Catalog, details, genres, studios, staff and characters | Anonymous access or API key; OAuth may also query |
 | `media`, catalog without search and related entities with an API key | `catalog:read` |
 | `mediaPage` with text and an API key | `search:read`; selected relationships require `catalog:read` |

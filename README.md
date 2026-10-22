@@ -20,6 +20,7 @@ curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'
 | Usar GraphQL, relacionamentos e mutations | [Guia GraphQL](docs/graphql.md) · [Schema SDL](graphql/schema.graphql) |
 | Criar um aplicativo mobile | [Catálogo, biblioteca e coleções](docs/mobile-apps.md) |
 | Integrar feed, publicações, reviews e notificações | [Comunidade](docs/community.md) |
+| Consultar tópicos e participar do fórum | [Fórum e Spaces](docs/forum.md) |
 | Conectar uma conta | [OAuth e PKCE](docs/authentication.md) |
 | Usar uma API key no servidor | [API keys](docs/api-keys.md) |
 | Encontrar mídia por ID Branilist, MyAnimeList ou AniList | [Catálogo e busca](docs/reference/catalog.md) |

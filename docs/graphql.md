@@ -1,5 +1,6 @@
 # API GraphQL pública
 
+[Fórum e Spaces](forum.md)
 [Índice](README.md) · [Aplicativos mobile](mobile-apps.md) · [Comunidade, reviews e notificações](community.md) · [OAuth e PKCE](authentication.md) · [Schema SDL](../graphql/schema.graphql)
 
 A API GraphQL usa **`POST https://branilist.com/api/graphql`** e um schema próprio para integrações. A REST continua disponível em `/api/v1`. O GraphQL do site em `/graphql` tem outro contrato e autenticação.
@@ -20,6 +21,7 @@ Escolha os campos necessários. `mediaPage` aceita texto opcional, `type: ANIME`
 
 | Operação | Credencial |
 | --- | --- |
+| Fórum e Spaces | OAuth `forum:read / forum:write` |
 | Catálogo, detalhes, gêneros, estúdios, profissionais e personagens | Acesso anônimo ou API key; OAuth também pode consultar |
 | `media`, catálogo sem busca e entidades relacionadas com API key | `catalog:read` |
 | `mediaPage` com texto e API key | `search:read`; os relacionamentos selecionados exigem `catalog:read` |

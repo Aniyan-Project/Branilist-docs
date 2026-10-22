@@ -101,4 +101,4 @@ mutation CreateCollection {
 
 As regras de [privacidade, paginação, custo e erros GraphQL](graphql.md) continuam valendo. Uma operação com várias mutations executa cada campo em sua própria transação. Para uso offline, confira o estado após falhas de rede e não repita operações indiscriminadamente. Esta API não oferece um protocolo de sincronização incremental ou resolução automática de conflitos.
 
-Feed, seguidores, publicações, reviews, comentários e notificações estão no [guia de comunidade](community.md). Fórum, push e gestão sensível de conta não fazem parte destas operações. Mantenha as credenciais isoladas por conta e trate erros mesmo quando a resposta HTTP for 200.
+Feed, seguidores, publicações, reviews, comentários e notificações estão no [guia de comunidade](community.md). O [fórum e as Spaces](forum.md) têm operações próprias. Push e gestão sensível de conta não fazem parte destas operações. Mantenha as credenciais isoladas por conta e trate erros mesmo quando a resposta HTTP for 200.

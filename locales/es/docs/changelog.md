@@ -2,6 +2,11 @@
 
 [Índice](README.md)
 
+## 2026-10-22 — GraphQL: Foro y Spaces
+
+- Foro GraphQL: categorías, etiquetas, temas, respuestas y Spaces; permisos independientes y referencias de notificación autorizadas.
+
+
 ## 2026-10-22 — GraphQL: comunidad y notificaciones
 
 - Feed, conexiones, publicaciones, reviews, comentarios, reacciones y notificaciones personales.

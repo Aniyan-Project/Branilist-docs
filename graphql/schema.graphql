@@ -10,6 +10,13 @@ type APIInfo { name: String! version: String! schemaUrl: String! }
 type MediaTitle { romaji: String! english: String native: String portuguese: String }
 
 type Query {
+  forumCategories(first: Int! = 20, offset: Int! = 0): ForumCategoryPage
+  forumTags(first: Int! = 20, offset: Int! = 0): ForumTagPage
+  forumTopics(filter: ForumTopicFilter, sort: ForumSort! = ACTIVITY, first: Int! = 20, offset: Int! = 0): ForumTopicPage
+  forumTopic(id: ID!): ForumTopic
+  forumPost(id: ID!): ForumPost
+  forumSpaces(first: Int! = 20, offset: Int! = 0): ForumSpacePage
+  forumSpace(slug: String!): ForumSpace
   review(id: ID!): SocialReview
   reviews(mediaId: ID!, first: Int! = 20, offset: Int! = 0): SocialReviewPage
   comments(mediaId: ID, reviewId: ID, activityId: ID, first: Int! = 20, offset: Int! = 0): SocialCommentPage
@@ -98,6 +105,7 @@ type User {
 }
 type Profile { id: ID! username: String! displayName: String! avatarUrl: String bannerUrl: String bio: String createdAt: Time! }
 type Viewer {
+ forumSubscriptions(first: Int! = 20, offset: Int! = 0): ForumTopicPage
   feed(scope: CommunityFeedScope! = FOLLOWING, types: [CommunityActivityType!]! = [], first: Int! = 20, offset: Int! = 0): SocialActivityPage
   followers(first: Int! = 20, offset: Int! = 0): SocialActorPage
   following(first: Int! = 20, offset: Int! = 0): SocialActorPage
@@ -178,6 +186,14 @@ input LibraryEntryInput {
 }
 type RemovalResult { mediaId: ID! removed: Boolean! }
 type Mutation {
+ createForumTopic(input: ForumTopicInput!): ForumTopic
+ createForumPost(topicId: ID!, parentId: ID, body: String!): ForumPost
+ updateForumPost(id: ID!, body: String!, reason: String): ForumPost
+ deleteForumPost(id: ID!): Boolean
+ setForumTopicTags(id: ID!, tagIds: [ID!]!): Boolean
+ setForumSubscription(id: ID!, enabled: Boolean!): Boolean
+ setForumReaction(id: ID!, reaction: ForumReaction!, enabled: Boolean!): Boolean
+ setForumMembership(spaceId: ID!, enabled: Boolean!): Boolean
   setFollow(username: String!, enabled: Boolean!): Boolean
   setBlock(username: String!, enabled: Boolean!): Boolean
   setMute(username: String!, enabled: Boolean!): Boolean
@@ -248,7 +264,7 @@ enum CommunityRecommendation { RECOMMENDED MIXED NOT_RECOMMENDED }
 enum CommunitySpoilerLevel { NONE MINOR MAJOR }
 enum CommunityReaction { HELPFUL INSIGHTFUL WELL_WRITTEN }
 enum PostVisibility { PUBLIC PRIVATE }
-enum CommunityReportTarget { USER REVIEW COMMENT PROFILE_POST }
+enum CommunityReportTarget { USER REVIEW COMMENT PROFILE_POST FORUM_TOPIC FORUM_POST }
 enum NotificationEmailMode { OFF IMMEDIATE DAILY }
 type SocialActor { id: ID! username: String! displayName: String! avatarUrl: String }
 type SocialActorPage { nodes: [SocialActor!]! pageInfo: PageInfo! }
@@ -278,3 +294,22 @@ input SocialNotificationTypeInput { type: String! inAppEnabled: Boolean! emailEn
 input SocialReportInput { targetType: CommunityReportTarget! targetId: ID! reason: String! details: String }
 """Receipt for the submitting account. Moderation data and other reporters are never exposed."""
 type ReportReceipt { id: ID! status: String! createdAt: Time! }
+
+"""OAuth forum:read. Archived topics and inaccessible authors/Spaces are excluded before pagination."""
+input ForumTopicFilter { query: String categorySlug: String tagSlug: String spaceSlug: String status: ForumStatus }
+enum ForumSort { RELEVANCE ACTIVITY POPULARITY NEWEST }
+enum ForumStatus { OPEN LOCKED }
+enum ForumReaction { LIKE HELPFUL AGREE INSIGHTFUL }
+type ForumCategory { id: ID! slug: String! name: String! description: String! icon: String! color: String locked: Boolean! }
+type ForumTag { id: ID! slug: String! name: String! description: String! color: String }
+type ForumCategoryPage { nodes: [ForumCategory!]! pageInfo: PageInfo! }
+type ForumTagPage { nodes: [ForumTag!]! pageInfo: PageInfo! }
+type ForumTopicPage { nodes: [ForumTopic!]! pageInfo: PageInfo! }
+type ForumSpacePage { nodes: [ForumSpace!]! pageInfo: PageInfo! }
+type ForumPostPage { nodes: [ForumPost!]! pageInfo: PageInfo! }
+type ForumTopic { id: ID! category: ForumCategory! author: SocialActor! title: String! status: ForumStatus! pinned: Boolean! featured: Boolean! tags: [ForumTag!]! spaceSlug: String viewCount: Int! postCount: Int! viewerSubscribed: Boolean! lastPostAt: Time! createdAt: Time! updatedAt: Time! posts(first: Int! = 20, offset: Int! = 0): ForumPostPage }
+type ForumPost { id: ID! topicId: ID! parentId: ID author: SocialActor! body: String! removed: Boolean! viewerOwns: Boolean! reactions: [ForumReactionSummary!]! editedAt: Time createdAt: Time! updatedAt: Time! }
+type ForumReactionSummary { type: ForumReaction! count: Int! viewerReacted: Boolean! }
+type ForumSpace { id: ID! slug: String! name: String! description: String! rules: String! avatarUrl: String bannerUrl: String owner: SocialActor! memberCount: Int! topicCount: Int! viewerMember: Boolean! createdAt: Time! updatedAt: Time! }
+"""Creates a topic outside Spaces. Tag IDs must be distinct (maximum 8)."""
+input ForumTopicInput { categoryId: ID! title: String! body: String! tagIds: [ID!]! = [] }

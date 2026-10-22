@@ -2,6 +2,11 @@
 
 [Index](README.md)
 
+## 2026-10-22 — GraphQL: Forum and Spaces
+
+- GraphQL forum: categories, tags, topics, replies, and Spaces; independent scopes and authorized notification references.
+
+
 ## 2026-10-22 — GraphQL: community and notifications
 
 - Feed, connections, posts, reviews, comments, reactions and personal notifications.

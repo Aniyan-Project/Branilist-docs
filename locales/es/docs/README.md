@@ -1,5 +1,6 @@
 # Índice de la documentación
 
+[Foro y Spaces](forum.md)
 ## Guías
 
 - [API GraphQL pública](graphql.md)
