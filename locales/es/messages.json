@@ -114,5 +114,14 @@
   "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.": "Usuario inexistente, inactivo, eliminado, bloqueado o sin la visibilidad pública requerida.",
   "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.": "Token ausente, inválido, caducado, revocado, sin scope o con propietario inactivo.",
   "ID, username ou paginação inválidos.": "ID, username o paginación inválidos.",
-  "Há mais resultados após esta página; alterações concorrentes podem deslocar páginas.": "Hay más resultados tras esta página; los cambios simultáneos pueden desplazar las páginas."
+  "Há mais resultados após esta página; alterações concorrentes podem deslocar páginas.": "Hay más resultados tras esta página; los cambios simultáneos pueden desplazar las páginas.",
+  "Perfil público de usuário": "Perfil público de usuario",
+  "Biblioteca pública de usuário": "Biblioteca pública de usuario",
+  "Atividade pública de usuário": "Actividad pública de usuario",
+  "Coleções públicas de usuário": "Colecciones públicas de usuario",
+  "ID interno positivo de 64 bits ou username (3–24 letras ASCII, números ou underscore). Auto consulta ambos; use by=id ou by=username para seleção explícita.": "ID interno positivo de 64 bits o username (3–24 letras ASCII, números o underscore). Auto consulta ambos; usa by=id o by=username para seleccionar explícitamente.",
+  "Modo de resolução: auto (padrão), id ou username. Valores vazios, repetidos ou desconhecidos retornam 400.": "Modo de resolución: auto (predeterminado), id o username. Los valores vacíos, repetidos o desconocidos devuelven 400.",
+  "No modo auto, se ID e username apontarem para contas públicas diferentes, retorna 409 ambiguous_user. Não escolhe uma conta por prioridade. Candidatos indisponíveis preservam 404, sem selecionar outra conta por fallback.": "En modo auto, si ID y username corresponden a cuentas públicas distintas, devuelve 409 ambiguous_user. Ninguna cuenta tiene prioridad. Los candidatos no disponibles conservan 404 sin seleccionar otra cuenta como alternativa.",
+  "ID e username correspondem a usuários públicos diferentes. Informe by=id ou by=username.": "ID y username corresponden a usuarios públicos distintos. Indica by=id o by=username.",
+  "Identificador, modo by ou paginação inválidos.": "Identificador, modo by o paginación inválidos."
 }

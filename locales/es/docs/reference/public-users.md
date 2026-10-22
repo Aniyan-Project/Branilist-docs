@@ -6,17 +6,19 @@ Estas rutas consultan a otro usuario sin necesitar su token. Envía un access to
 
 ## Rutas y autenticación
 
-| Recurso | Por ID | Por username | Scope |
-| --- | --- | --- | --- |
-| Perfil | `/api/v1/users/id/{id}` | `/api/v1/users/by-username/{username}` | `profile:read` |
-| Biblioteca | `/api/v1/users/id/{id}/library` | `/api/v1/users/by-username/{username}/library` | `library:read` |
-| Actividad | `/api/v1/users/id/{id}/activity` | `/api/v1/users/by-username/{username}/activity` | `activity:read` |
-| Colecciones | `/api/v1/users/id/{id}/collections` | `/api/v1/users/by-username/{username}/collections` | `collections:read` |
+| Recurso | Ruta | Scope |
+| --- | --- | --- |
+| Perfil | `/api/v1/users/{identifier}` | `profile:read` |
+| Biblioteca | `/api/v1/users/{identifier}/library` | `library:read` |
+| Actividad | `/api/v1/users/{identifier}/activity` | `activity:read` |
+| Colecciones | `/api/v1/users/{identifier}/collections` | `collections:read` |
 
-Todas usan **GET**. `id` es el ID interno positivo de 64 bits del **usuario**, no de un medio. Username acepta 3–24 letras ASCII, números o `_`, sin distinguir mayúsculas. Los prefijos explícitos distinguen usernames numéricos de IDs.
+Todas usan **GET**. `identifier` acepta el ID interno positivo de 64 bits del **usuario** o su username (3–24 letras ASCII, números o `_`, sin distinguir mayúsculas). El parámetro opcional `by` acepta `auto` (predeterminado), `id` o `username`. Los valores vacíos, repetidos o desconocidos devuelven 400.
+
+Auto consulta ambas posibilidades. Si corresponden a la misma cuenta, devuelve esa cuenta; si solo una coincide, devuelve la encontrada. Si corresponden a **cuentas públicas distintas**, devuelve **409** con `error: "ambiguous_user"`. Usa `/api/v1/users/123456?by=username` para buscar el nombre numérico o `/api/v1/users/123456?by=id` para buscar el ID. Los usernames numéricos siguen siendo válidos, incluso fuera del intervalo de IDs. Un candidato privado, bloqueado o no disponible conserva **404**, sin seleccionar silenciosamente otra cuenta. Con `by=id` o `by=username`, solo se consulta la opción solicitada.
 
 ```sh
-curl --fail-with-body 'https://branilist.com/api/v1/users/by-username/example' \
+curl --fail-with-body 'https://branilist.com/api/v1/users/example' \
   -H "Authorization: Bearer $BRANILIST_ACCESS_TOKEN"
 ```
 
@@ -54,7 +56,7 @@ Devuelve [Collection](models.md) solo con `visibility = PUBLIC`. Omite `PRIVATE`
 Biblioteca, actividad y colecciones aceptan `limit` **1–100** (predeterminado **20**) y `offset` **0–10000** (predeterminado **0**). Los parámetros vacíos, repetidos, no enteros o fuera de rango devuelven 400.
 
 ```sh
-curl --fail-with-body 'https://branilist.com/api/v1/users/id/42/library?limit=20&offset=0' \
+curl --fail-with-body 'https://branilist.com/api/v1/users/42/library?limit=20&offset=0' \
   -H "Authorization: Bearer $BRANILIST_ACCESS_TOKEN"
 ```
 
@@ -71,8 +73,9 @@ curl --fail-with-body 'https://branilist.com/api/v1/users/id/42/library?limit=20
 | 400 | ID, username o paginación inválidos |
 | 401 | Bearer ausente/inválido/caducado/revocado, scope insuficiente o propietario inactivo |
 | 404 | Usuario inexistente, inactivo, eliminado, bloqueado o sin visibilidad pública suficiente |
+| 409 | ID y username corresponden a cuentas públicas distintas; indica `by` |
 | 429 | Límite por IP/token o cuota de integración |
 | 500 | Fallo de consulta |
 | 503 | Servicio de integración no disponible |
 
-Los errores OAuth usan JSON `error` y `error_description`; los de validación, visibilidad y consulta usan texto. Se aplican las [cuotas y límites OAuth existentes](../rate-limits.md), con métricas `users.profile`, `users.library`, `users.activity` y `users.collections`.
+Los errores OAuth y de ambigüedad usan JSON `error` y `error_description`; los de validación, visibilidad y consulta usan texto. Se aplican las [cuotas y límites OAuth existentes](../rate-limits.md), con métricas `users.profile`, `users.library`, `users.activity` y `users.collections`.

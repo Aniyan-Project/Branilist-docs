@@ -6,17 +6,19 @@ These endpoints query another user without their token. Send a valid OAuth acces
 
 ## Endpoints and authentication
 
-| Resource | By ID | By username | Scope |
-| --- | --- | --- | --- |
-| Profile | `/api/v1/users/id/{id}` | `/api/v1/users/by-username/{username}` | `profile:read` |
-| Library | `/api/v1/users/id/{id}/library` | `/api/v1/users/by-username/{username}/library` | `library:read` |
-| Activity | `/api/v1/users/id/{id}/activity` | `/api/v1/users/by-username/{username}/activity` | `activity:read` |
-| Collections | `/api/v1/users/id/{id}/collections` | `/api/v1/users/by-username/{username}/collections` | `collections:read` |
+| Resource | Path | Scope |
+| --- | --- | --- |
+| Profile | `/api/v1/users/{identifier}` | `profile:read` |
+| Library | `/api/v1/users/{identifier}/library` | `library:read` |
+| Activity | `/api/v1/users/{identifier}/activity` | `activity:read` |
+| Collections | `/api/v1/users/{identifier}/collections` | `collections:read` |
 
-All use **GET**. `id` is the **user's** positive internal 64-bit ID, not a media ID. Usernames accept 3–24 ASCII letters, digits or `_`, case-insensitively. Explicit prefixes distinguish numeric usernames from IDs.
+All use **GET**. `identifier` accepts the **user’s** positive internal 64-bit ID or username (3–24 ASCII letters, digits or `_`, case-insensitively). Optional `by` accepts `auto` (default), `id` or `username`. Empty, repeated or unknown values return 400.
+
+Auto checks both possibilities. When both refer to the same account, that account is returned; when only one matches, the matching account is returned. If they match **different public accounts**, the API returns **409** with `error: "ambiguous_user"`. Use `/api/v1/users/123456?by=username` for the numeric username or `/api/v1/users/123456?by=id` for the ID. Numeric usernames remain valid, including numbers outside the ID range. A private, blocked or unavailable candidate preserves **404**, without silently falling back to another account. With `by=id` or `by=username`, only the requested option is checked.
 
 ```sh
-curl --fail-with-body 'https://branilist.com/api/v1/users/by-username/example' \
+curl --fail-with-body 'https://branilist.com/api/v1/users/example' \
   -H "Authorization: Bearer $BRANILIST_ACCESS_TOKEN"
 ```
 
@@ -54,7 +56,7 @@ Returns [Collection](models.md) objects with `visibility = PUBLIC` only. `PRIVAT
 Library, activity and collections accept `limit` **1–100** (default **20**) and `offset` **0–10000** (default **0**). Empty, repeated, noninteger or out-of-range parameters return 400.
 
 ```sh
-curl --fail-with-body 'https://branilist.com/api/v1/users/id/42/library?limit=20&offset=0' \
+curl --fail-with-body 'https://branilist.com/api/v1/users/42/library?limit=20&offset=0' \
   -H "Authorization: Bearer $BRANILIST_ACCESS_TOKEN"
 ```
 
@@ -71,8 +73,9 @@ curl --fail-with-body 'https://branilist.com/api/v1/users/id/42/library?limit=20
 | 400 | Invalid ID, username or pagination |
 | 401 | Missing/invalid/expired/revoked Bearer, insufficient scope or inactive token owner |
 | 404 | Missing, inactive, deleted, blocked or insufficiently public target |
+| 409 | ID and username match different public accounts; specify `by` |
 | 429 | IP/token limit or integration quota |
 | 500 | Query failure |
 | 503 | Integration service unavailable |
 
-OAuth errors use JSON `error` and `error_description`; validation, visibility and query errors use text. Existing [OAuth quotas and limits](../rate-limits.md) apply, with operation metrics `users.profile`, `users.library`, `users.activity` and `users.collections`.
+OAuth and ambiguity errors use JSON `error` and `error_description`; validation, visibility and query errors use text. Existing [OAuth quotas and limits](../rate-limits.md) apply, with operation metrics `users.profile`, `users.library`, `users.activity` and `users.collections`.

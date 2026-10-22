@@ -114,5 +114,14 @@
   "Usuário inexistente, inativo, excluído, bloqueado ou sem visibilidade pública exigida.": "User is missing, inactive, deleted, blocked or lacks the required public visibility.",
   "Token ausente, inválido, expirado, revogado, sem escopo ou dono do token inativo.": "Token is missing, invalid, expired, revoked, lacks scope or belongs to an inactive user.",
   "ID, username ou paginação inválidos.": "Invalid ID, username or pagination.",
-  "Há mais resultados após esta página; alterações concorrentes podem deslocar páginas.": "More results follow this page; concurrent changes may shift pages."
+  "Há mais resultados após esta página; alterações concorrentes podem deslocar páginas.": "More results follow this page; concurrent changes may shift pages.",
+  "Perfil público de usuário": "Public user profile",
+  "Biblioteca pública de usuário": "Public user library",
+  "Atividade pública de usuário": "Public user activity",
+  "Coleções públicas de usuário": "Public user collections",
+  "ID interno positivo de 64 bits ou username (3–24 letras ASCII, números ou underscore). Auto consulta ambos; use by=id ou by=username para seleção explícita.": "Positive internal 64-bit ID or username (3–24 ASCII letters, digits or underscores). Auto checks both; use by=id or by=username to select explicitly.",
+  "Modo de resolução: auto (padrão), id ou username. Valores vazios, repetidos ou desconhecidos retornam 400.": "Resolution mode: auto (default), id or username. Empty, repeated or unknown values return 400.",
+  "No modo auto, se ID e username apontarem para contas públicas diferentes, retorna 409 ambiguous_user. Não escolhe uma conta por prioridade. Candidatos indisponíveis preservam 404, sem selecionar outra conta por fallback.": "In auto mode, an ID and username matching different public accounts return 409 ambiguous_user. No account takes priority. Unavailable candidates preserve 404 instead of falling back to another account.",
+  "ID e username correspondem a usuários públicos diferentes. Informe by=id ou by=username.": "ID and username match different public users. Specify by=id or by=username.",
+  "Identificador, modo by ou paginação inválidos.": "Invalid identifier, by mode or pagination."
 }
