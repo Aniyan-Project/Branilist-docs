@@ -54,4 +54,3 @@ Esta documentação foi conferida com a implementação em **21 de outubro de 20
 
 O conteúdo é mantido em Markdown para leitura e revisão diretamente no GitHub. O site usa VitePress e é publicado automaticamente no GitHub Pages. Operações e modelos são gerados de `openapi.json`; páginas Markdown entram automaticamente na navegação. Veja [como publicar e adicionar rotas](docs/publishing.md).
 
-A organização é inspirada no [repositório de documentação do AniList](https://github.com/AniList/docs); o contrato descrito aqui é o do Branilist.

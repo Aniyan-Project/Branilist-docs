@@ -6,7 +6,7 @@
 
 - Other users' profiles, libraries, published activity and collections by ID or username, using OAuth and existing read scopes.
 - PUBLIC visibility, bidirectional blocks, private-entry filtering and exclusion of PRIVATE/UNLISTED collections.
-- Pagination and three-language documentation. Availability depends on the corresponding API deployment.
+- Pagination and three-language documentation.
 
 ## 2026-10-21 — Languages
 

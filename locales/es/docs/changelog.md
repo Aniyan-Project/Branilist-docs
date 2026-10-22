@@ -6,7 +6,7 @@
 
 - Perfil, biblioteca, actividad publicada y colecciones de otros usuarios por ID o username, con OAuth y los scopes de lectura existentes.
 - Visibilidad PUBLIC, bloqueos bidireccionales, exclusión de entradas privadas y colecciones PRIVATE/UNLISTED.
-- Paginación y documentación en tres idiomas. La disponibilidad depende del despliegue correspondiente de la API.
+- Paginación y documentación en tres idiomas.
 
 ## 2026-10-21
 
