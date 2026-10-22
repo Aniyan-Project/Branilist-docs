@@ -1,5 +1,7 @@
 # OAuth 2.0 com PKCE
 
+Consulte os [Termos de Uso da API](terms-of-use.md) antes de utilizar os recursos de integração.
+
 [Fórum e Spaces](forum.md)
 [Índice](README.md) · [API keys](api-keys.md) · [Exemplo PKCE](../examples/pkce.mjs) · [Comunidade, reviews e notificações](community.md)
 

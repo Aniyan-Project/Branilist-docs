@@ -1,7 +1,7 @@
 # Public GraphQL API
 
 [Forum and Spaces](forum.md)
-[Index](README.md) · [Mobile applications](mobile-apps.md) · [Community, reviews and notifications](community.md) · [OAuth and PKCE](authentication.md) · [SDL schema](../../../graphql/schema.graphql)
+[Index](README.md) · [Mobile applications](mobile-apps.md) · [Community, reviews and notifications](community.md) · [OAuth and PKCE](authentication.md) · [SDL schema](../../../graphql/schema.graphql) · [API Terms of Use](terms-of-use.md)
 
 Use **`POST https://branilist.com/api/graphql`** with the dedicated integration schema. REST remains available at `/api/v1`. The site's `/graphql` endpoint has a different contract and authentication.
 

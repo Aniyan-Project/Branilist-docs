@@ -21,6 +21,7 @@ The response contains an `items` array. Use a media item's `id` to retrieve its 
 | Query the catalog from my server | [API keys](../docs/api-keys.md) |
 | Look up MyAnimeList and AniList IDs | [Catalog and search](../docs/reference/catalog.md) |
 | Update or remove library entries | [Personal library](../docs/reference/library.md) |
+| Understand the API usage rules | [API Terms of Use](../docs/terms-of-use.md) |
 | Handle errors and usage limits | [Errors](../docs/errors.md) and [rate limits](../docs/rate-limits.md) |
 | Receive integration events | [Webhooks](../docs/webhooks.md) |
 

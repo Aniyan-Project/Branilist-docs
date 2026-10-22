@@ -21,6 +21,7 @@ A resposta contém um array `items`. Use o `id` de uma mídia para consultar seu
 | Consultar catálogo pelo meu servidor | [API keys](../docs/api-keys.md) |
 | Consultar pelos IDs MyAnimeList e AniList | [Catálogo e busca](../docs/reference/catalog.md) |
 | Atualizar ou remover uma mídia da biblioteca | [Biblioteca pessoal](../docs/reference/library.md) |
+| Entender as regras de uso da API | [Termos de uso da API](../docs/terms-of-use.md) |
 | Tratar erros e limites de uso | [Erros](../docs/errors.md) e [limites](../docs/rate-limits.md) |
 | Receber eventos na minha integração | [Webhooks](../docs/webhooks.md) |
 

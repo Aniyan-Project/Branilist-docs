@@ -2,6 +2,10 @@
 
 [Index](README.md)
 
+## 2026-10-22 — API Terms of Use
+
+- API Terms of Use published in Portuguese, English, and Spanish, covering usage, storage, attribution, privacy, and commercial use.
+
 ## 2026-10-22 — GraphQL: Forum and Spaces
 
 - GraphQL forum: categories, tags, topics, replies, and Spaces; independent scopes and authorized notification references.

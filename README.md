@@ -47,6 +47,7 @@ REST e GraphQL possuem contratos próprios. Consulte o guia de cada recurso para
 | Ler perfil, histórico e coleções | [Conta do usuário](docs/reference/account.md) |
 | Consultar dados públicos de outra pessoa | [Usuários públicos](docs/reference/public-users.md) |
 | Entender os campos das respostas | [Modelos e convenções](docs/reference/models.md) |
+| Conhecer as regras de uso, atribuição e uso comercial | [Termos de Uso da API](docs/terms-of-use.md) |
 | Tratar falhas e limites | [Erros](docs/errors.md) · [Limites e cache](docs/rate-limits.md) |
 | Receber eventos | [Webhooks](docs/webhooks.md) |
 | Testar com JavaScript ou uma ferramenta de API | [Exemplos](docs/examples.md) · [OpenAPI](openapi.json) |

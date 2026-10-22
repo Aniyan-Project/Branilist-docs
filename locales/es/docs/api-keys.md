@@ -1,5 +1,7 @@
 # API keys
 
+Consulta los [Términos de Uso de la API](terms-of-use.md) antes de utilizar los recursos de integración.
+
 [Índice](README.md) · [OAuth](authentication.md) · [Límites](rate-limits.md)
 
 Utiliza API keys para las consultas del catálogo desde tu servidor. Crea y gestiona las claves dentro de la aplicación correspondiente en el [panel](https://branilist.com/settings/developer).

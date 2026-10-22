@@ -27,6 +27,7 @@
 
 ## Mantenimiento
 
+- [Términos de uso de la API](terms-of-use.md)
 - [Preguntas frecuentes y limitaciones](faq.md)
 - [Historial de la documentación](changelog.md)
 - [Contribuir](../CONTRIBUTING.md)

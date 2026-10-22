@@ -27,6 +27,7 @@
 
 ## Maintenance
 
+- [API Terms of Use](terms-of-use.md)
 - [FAQ and current limitations](faq.md)
 - [Documentation changelog](changelog.md)
 - [Contributing](../CONTRIBUTING.md)

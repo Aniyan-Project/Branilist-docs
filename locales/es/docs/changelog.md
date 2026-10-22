@@ -2,6 +2,10 @@
 
 [Índice](README.md)
 
+## 2026-10-22 — Términos de uso de la API
+
+- Términos de Uso de la API publicados en portugués, inglés y español, con reglas de uso, almacenamiento, atribución, privacidad y uso comercial.
+
 ## 2026-10-22 — GraphQL: Foro y Spaces
 
 - Foro GraphQL: categorías, etiquetas, temas, respuestas y Spaces; permisos independientes y referencias de notificación autorizadas.

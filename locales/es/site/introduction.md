@@ -21,6 +21,7 @@ La respuesta contiene un array `items`. Utiliza el `id` de un contenido para con
 | Consultar el catálogo desde mi servidor | [API keys](../docs/api-keys.md) |
 | Consultar IDs de MyAnimeList y AniList | [Catálogo y búsqueda](../docs/reference/catalog.md) |
 | Actualizar o eliminar entradas | [Biblioteca personal](../docs/reference/library.md) |
+| Entender las reglas de uso de la API | [Términos de uso de la API](../docs/terms-of-use.md) |
 | Gestionar errores y límites | [Errores](../docs/errors.md) y [límites](../docs/rate-limits.md) |
 | Recibir eventos de la integración | [Webhooks](../docs/webhooks.md) |
 

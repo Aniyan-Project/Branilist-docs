@@ -1,5 +1,7 @@
 # API keys
 
+Read the [API Terms of Use](terms-of-use.md) before using integration resources.
+
 [Index](README.md) · [OAuth](authentication.md) · [Limits](rate-limits.md)
 
 Use API keys for catalog queries made by your server. Create and manage keys under the appropriate application in [developer settings](https://branilist.com/settings/developer).
