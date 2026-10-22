@@ -4,9 +4,9 @@ Documentação das APIs públicas REST e GraphQL do [Branilist](https://branilis
 
 **REST/JSON · GraphQL · OAuth 2.0 + PKCE · Português / English / Español**
 
-**[Ler a documentação no site →](https://aniyan-project.github.io/Branilist-docs/guide/introduction.html)**
+**[Ler a documentação no site →](https://docs.branilist.com/guide/introduction.html)**
 
-[Português](https://aniyan-project.github.io/Branilist-docs/guide/introduction.html) · [English](https://aniyan-project.github.io/Branilist-docs/en/guide/introduction.html) · [Español](https://aniyan-project.github.io/Branilist-docs/es/guide/introduction.html)
+[Português](https://docs.branilist.com/guide/introduction.html) · [English](https://docs.branilist.com/en/guide/introduction.html) · [Español](https://docs.branilist.com/es/guide/introduction.html)
 
 ```sh
 curl --fail-with-body 'https://branilist.com/api/v1/search?q=frieren&limit=5'

@@ -2,7 +2,7 @@
 
 [Índice](README.md)
 
-El sitio VitePress está alojado en [GitHub Pages](https://aniyan-project.github.io/Branilist-docs/), con búsqueda local, barra lateral, temas claro/oscuro y referencia generada desde OpenAPI.
+El sitio VitePress está alojado en [GitHub Pages en docs.branilist.com](https://docs.branilist.com/), con búsqueda local, barra lateral, temas claro/oscuro y referencia generada desde OpenAPI.
 
 ## Flujo de actualización
 
@@ -51,7 +51,7 @@ Reinicia `docs:dev` al añadir o eliminar archivos de navegación. La publicaci�
 
 Settings → Pages usa **GitHub Actions**. Solo el trabajo de publicación tiene `pages: write` e `id-token: write`; la construcción tiene lectura del repositorio. No necesita token personal ni acceso privado al backend.
 
-La ruta base es `/Branilist-docs/`. Al renombrar el repositorio o usar dominio propio, actualiza `base` y `sitemap.hostname` en `.vitepress/config.mts`.
+El sitio usa el dominio personalizado `docs.branilist.com`, con `base: '/'` y `sitemap.hostname: 'https://docs.branilist.com/'` en `.vitepress/config.mts`. Si cambia el dominio, actualiza esta configuración y los enlaces del README.
 
 | Síntoma | Comprobar |
 | --- | --- |

@@ -2,7 +2,7 @@
 
 [Índice](README.md)
 
-O site é publicado no **GitHub Pages** em [aniyan-project.github.io/Branilist-docs](https://aniyan-project.github.io/Branilist-docs/). Ele usa VitePress com busca local, navegação lateral, temas claro/escuro e uma referência gerada do OpenAPI.
+O site é publicado no **GitHub Pages** em [docs.branilist.com](https://docs.branilist.com/). Ele usa VitePress com busca local, navegação lateral, temas claro/escuro e uma referência gerada do OpenAPI.
 
 ## Fluxo de atualização
 
@@ -63,7 +63,7 @@ Se adicionar ou remover arquivos de navegação durante o servidor de desenvolvi
 
 O repositório usa a fonte **GitHub Actions** em Settings → Pages. O workflow recebe permissão `pages: write` e `id-token: write` apenas no job de deploy; o build usa leitura do repositório. A publicação não precisa de token pessoal nem acesso ao repositório privado da API.
 
-O prefixo do site é `/Branilist-docs/`. Se mudar o nome do repositório ou usar um domínio próprio, ajuste `base` e `sitemap.hostname` em `.vitepress/config.mts`.
+O site usa o domínio personalizado `docs.branilist.com`, com `base: '/'` e `sitemap.hostname: 'https://docs.branilist.com/'` em `.vitepress/config.mts`. Se mudar o domínio, atualize também essa configuração e os links do README.
 
 ## Diagnóstico
 

@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import { locales, searchLocales } from './locales.mts'
 
 const navigation = JSON.parse(readFileSync(new URL('../.site/navigation.json', import.meta.url), 'utf8'))
-const base = '/Branilist-docs/'
+const base = '/'
 // Recognize SDL downloads as static assets in both the build and client router.
 process.env.VITE_EXTRA_EXTENSIONS = 'graphql'
 
@@ -19,7 +19,7 @@ export default defineConfig({
   appearance: true,
   locales,
   head: [['meta', { name: 'color-scheme', content: 'light dark' }]],
-  sitemap: { hostname: 'https://aniyan-project.github.io/Branilist-docs/' },
+  sitemap: { hostname: 'https://docs.branilist.com/' },
   themeConfig: {
     siteTitle: 'Branilist API Docs',
     nav: [
